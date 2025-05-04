@@ -56,7 +56,7 @@ with m1:
     total = data["Value"].sum()
     st.markdown(f"<h3 style='text-align: center;'>Usable Rules ({total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
-    st.markdown("<h3 style='text-align: center;'>Usable Rules List</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>Usable Rules List ({total})</h3>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
@@ -64,7 +64,6 @@ with m1:
         }
         """
     )
-
     grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
     grid_options_unusable = grid_builder_unusable.build()
     grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
@@ -80,7 +79,7 @@ with m2:
     total = data["Value"].sum()
     st.markdown(f"<h3 style='text-align: center;'>Unusable Rules ({total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
-    st.markdown("<h3 style='text-align: center;'>Unusable Rules List</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>Unusable Rules List ({total})</h3>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
