@@ -32,7 +32,7 @@ cellStyle = JsCode(
          if (cellClassParams.data.DefaultSetting == "No Auditing") {
             return {'background-color': 'lightsalmon'}
          } else {
-            return {'background-color': 'lightgreen'}
+            return {'background-color': 'palegreen'}
          }
     }
    """)
@@ -43,7 +43,7 @@ grid_options['defaultColDef']['cellStyle'] = cellStyle
 AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>Sigma Rule Statics</h2>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>This is a comparison of the number of Sigma rules that can be used for selected baseline guide.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
 m1, m2, = st.columns(2)
 level_order = ["critical", "high", "medium", "low", "informational"]
 with m1:
@@ -97,6 +97,9 @@ st.markdown("<hr>", unsafe_allow_html=True)
 m1, m2, m3 = st.columns((1,11,1))
 with m2:
     st.markdown("<h2 style='text-align: center;'>Evnet Log File Size</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align: center;'>The following table shows the... </p>",
+        unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
     cellStyle = JsCode(
@@ -105,7 +108,7 @@ with m2:
              if (cellClassParams.data.CorrectSetting == "N") {
                 return {'background-color': 'lightsalmon'}
              } else {
-                return {'background-color': 'lightgreen'}
+                return {'background-color': 'palegreen'}
              }
         }
        """)
