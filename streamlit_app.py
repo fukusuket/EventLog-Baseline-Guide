@@ -42,7 +42,7 @@ grid_options = grid_builder.build()
 grid_options['defaultColDef']['cellStyle'] = cellStyle
 AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>Sigma Rule Statics</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>Sigma(hayabusa rules) Rule Statics</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
 m1, m2, = st.columns(2)
 level_order = ["critical", "high", "medium", "low", "informational"]
