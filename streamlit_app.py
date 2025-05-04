@@ -27,7 +27,7 @@ with m1:
     st.markdown(f"<h2 style='text-align: center;'> {guide} Audit Settings</h2>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 1, 5, 6, 7, 2]
+    columns_to_display = [0, 1, 6, 5, 7, 2]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
