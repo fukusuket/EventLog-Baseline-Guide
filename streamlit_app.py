@@ -44,10 +44,12 @@ with m1:
         }
        """)
 
-    grid_builder = GridOptionsBuilder.from_dataframe(df)
-    grid_options = grid_builder.build()
-    grid_options['defaultColDef']['cellStyle'] = cellStyle
-    AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
+    gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_column("Category", pinned="left", width=150)
+    gb.configure_column("SubCategory", pinned="left", width=150)
+    go = gb.build()
+    go['defaultColDef']['cellStyle'] = cellStyle
+    AgGrid(data=df, gridOptions=go, allow_unsafe_jscode=True, key='grid1', editable=True)
 
 with m2:
     st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
@@ -66,10 +68,10 @@ with m2:
         }
        """)
 
-    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
-    grid_options_unusable = grid_builder_unusable.build()
-    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle
-    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key="log_file_size", editable=True)
+    gb = GridOptionsBuilder.from_dataframe(df)
+    go = gb.build()
+    go['defaultColDef']['cellStyle'] = cellStyle
+    AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key="log_file_size", editable=True)
 
 
 ### Sigma Rule Statistics
