@@ -18,8 +18,6 @@ jobs:
           repository: Yamato-Security/WELA
           path: WELA
 
-      - uses: actions/checkout@v4
-
       - name: Run WELA.ps1 audit-settings
         run: |
           cd WELA
