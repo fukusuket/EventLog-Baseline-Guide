@@ -50,7 +50,7 @@ with m2:
         unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 3, 4, 6, 7]
+    columns_to_display = [0, 3, 4, 7]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
