@@ -21,7 +21,7 @@ st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
 guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "CIS", "ACSC", "AD"])
 st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
-st.markdown(f"<p style='text-align: center;'>Please check setting!</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: center;'>Please check audit setting!</p>", unsafe_allow_html=True)
 csv_file = "WELA-Audit-Result.csv"
 df = pd.read_csv(csv_file)
 columns_to_display = [0, 1, 2, 5, 6, 7]
