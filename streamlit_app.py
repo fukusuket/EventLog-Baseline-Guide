@@ -23,7 +23,6 @@ guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC
 m1, m2, = st.columns((2, 1))
 with m1:
     st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p style='text-align: center;'>Please check audit setting!</p>", unsafe_allow_html=True)
     csv_file = "WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 2, 5, 6, 7]
@@ -45,9 +44,6 @@ with m1:
     AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
 with m2:
     st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
-    st.markdown(
-        "<p style='text-align: center;'>The following table shows the... </p>",
-        unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 3, 4, 7]
