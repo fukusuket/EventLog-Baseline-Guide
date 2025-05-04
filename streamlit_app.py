@@ -118,6 +118,7 @@ with m1:
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='usable_rules', editable=True)
 
+
 with m2:
     csv_file = f"{guide}-UnusableRules.csv"
     df = pd.read_csv(csv_file)
@@ -146,12 +147,3 @@ with m2:
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
-
-footer = """
-<div class="footer">
-    Developed with ❤
-    <br>
-    <a href="https://twitter.com/nas_bench/">Nasreddine Bencherchali</a>
-</div>
-"""
-st.markdown(footer, unsafe_allow_html=True)
