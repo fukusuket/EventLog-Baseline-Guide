@@ -12,7 +12,13 @@ jobs:
         os: [windows-2019, windows-2022, windows-2025]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout self repository
+      - name: Checkout bat repository
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/EnableWindowsLogSettings
+          path: EnableWindowsLogSettings
+
+      - name: Checkout WELA repository
         uses: actions/checkout@v4
         with:
           repository: Yamato-Security/WELA
@@ -27,3 +33,10 @@ jobs:
         run: |
           cd WELA
           ./WELA.ps1 audit-filesize
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: WELA/*.csv
+          include-hidden-files: fales
