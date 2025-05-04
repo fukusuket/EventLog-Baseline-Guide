@@ -1,0 +1,31 @@
+name: Run WELA Audit
+
+on:
+  push:
+    branches: [ "*" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-2019, windows-2022, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout self repository
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/WELA
+          path: WELA
+
+      - uses: actions/checkout@v4
+
+      - name: Run WELA.ps1 audit-settings
+        run: |
+          cd WELA
+          ./WELA.ps1 audit-settings
+
+      - name: Run WELA.ps1 audit-filesize
+        run: |
+          cd WELA
+          ./WELA.ps1 audit-filesize
