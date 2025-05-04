@@ -60,7 +60,7 @@ with m1:
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
-            return {'background-color': 'cyan'}
+            return {'background-color': 'lightcyan'}
         }
         """
     )
