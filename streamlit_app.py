@@ -96,7 +96,7 @@ with m2:
 st.markdown("<hr>", unsafe_allow_html=True)
 m1, m2, m3 = st.columns((1,11,1))
 with m2:
-    st.markdown("<h2 style='text-align: center;'>Evnet Log File Size</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Evnet Log File Size Settings</h2>", unsafe_allow_html=True)
     st.markdown(
         "<p style='text-align: center;'>The following table shows the... </p>",
         unsafe_allow_html=True)
