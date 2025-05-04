@@ -33,7 +33,7 @@ with m1:
         r"""
         function(cellClassParams) {
              if (cellClassParams.data.DefaultSetting == "No Auditing") {
-                if (cellClassParams.data.RecommendedSetting.length >= 1) {
+                if (cellClassParams.data.RecommendedSetting === null) {
                     return {'background-color': 'lightsalmon'}
                 } else {
                     return {'background-color': 'palegreen'}
