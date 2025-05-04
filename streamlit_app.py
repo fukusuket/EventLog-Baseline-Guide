@@ -32,7 +32,7 @@ with m1:
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-             if (cellClassParams.data.Default == "No Auditing") {
+             if (cellClassParams.data.DefaultSetting == "No Auditing") {
                 return {'background-color': 'lightsalmon'}
              } else {
                 return {'background-color': 'palegreen'}
