@@ -77,7 +77,7 @@ with m2:
     data = df["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
-    st.markdown(f"<h3 style='text-align: center;'>Unusable Rules ({total})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>Unusable Rules (Total: {total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
     st.markdown(f"<h3 style='text-align: center;'>Unusable Rules List (Total: {total})</h3>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
