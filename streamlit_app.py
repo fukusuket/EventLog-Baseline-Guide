@@ -19,13 +19,13 @@ def create_bar_chart(data, title):
 
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
-guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
+guide = st.selectbox('', ["WindowsDefault", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
 
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 with m1:
-    st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
-    csv_file = "WELA-Audit-Result.csv"
+    st.markdown(f"<h2 style='text-align: center;'> {guide} Audit Settings</h2>", unsafe_allow_html=True)
+    csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 5, 6, 7, 2]
     df = df.iloc[:, columns_to_display]
@@ -47,7 +47,7 @@ with m1:
 
 with m2:
     st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
-    csv_file = "WELA-FileSize-Result.csv"
+    csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 3, 4, 7]
     df = df.iloc[:, columns_to_display]
@@ -75,7 +75,7 @@ st.markdown("<p style='text-align: center;'>The following graph shows the detect
 m1, m2, = st.columns(2)
 level_order = ["critical", "high", "medium", "low", "informational"]
 with m1:
-    csv_file = "UsableRules.csv"
+    csv_file = f"{guide}-UsableRules.csv"
     df = pd.read_csv(csv_file)
     df["level"] = pd.Categorical(df["level"], categories=level_order, ordered=True)
     df = df.sort_values("level")
@@ -103,7 +103,7 @@ with m1:
     AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='usable_rules', editable=True)
 
 with m2:
-    csv_file = "UnusableRules.csv"
+    csv_file = f"{guide}-UnusableRules.csv"
     df = pd.read_csv(csv_file)
     df["level"] = pd.Categorical(df["level"], categories=level_order, ordered=True)
     df = df.sort_values("level")
