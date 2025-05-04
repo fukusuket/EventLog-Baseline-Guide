@@ -22,12 +22,12 @@ st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for E
 guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
 
 ### Audit settings
-m1, m2, = st.columns((2, 1))
+m1, m2, = st.columns((3, 2))
 with m1:
     st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
     csv_file = "WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 1, 2, 5, 6, 7]
+    columns_to_display = [0, 1, 5, 6, 7, 2]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
