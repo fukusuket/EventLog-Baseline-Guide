@@ -32,8 +32,12 @@ with m1:
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-             if (cellClassParams.data.DefaultSetting == "No Auditing" && cellClassParams.data.RecommendedSetting) {
-                return {'background-color': 'lightsalmon'}
+             if (cellClassParams.data.DefaultSetting == "No Auditing") {
+                if (cellClassParams.data.RecommendedSetting == "") {
+                    return {'background-color': 'lightsalmon'}
+                } else {
+                    return {'background-color': 'palegreen'}
+                }
              } else {
                 return {'background-color': 'palegreen'}
              }
