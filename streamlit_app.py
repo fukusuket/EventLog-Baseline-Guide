@@ -94,7 +94,7 @@ with m2:
     AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
 
 st.markdown("<hr>", unsafe_allow_html=True)
-m1, m2, m3 = st.columns((1,10,1))
+m1, m2, m3 = st.columns((1,6,1))
 with m2:
     st.markdown("<h2 style='text-align: center;'>Evnet Log File Size Settings</h2>", unsafe_allow_html=True)
     st.markdown(
@@ -102,7 +102,7 @@ with m2:
         unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 2, 3, 4, 5, 6]
+    columns_to_display = [0, 2, 3, 4, 5, 6, 7]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""

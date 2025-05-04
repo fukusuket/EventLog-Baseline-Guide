@@ -1,4 +1,4 @@
-"Category","SubCategory","RuleCount","RuleCountByLevel","Enabled","DefaultSetting","RecommendedSetting","Volume","Note"
+"Category","SubCategory","RuleCount","RuleCountByLevel","Enabled","Default","Recommended","Volume","Note"
 "Application","","30","critical:, high:16, medium:7, low:5, info:0","True","Enabled. 20 MB","Enabled. 128 MB+","",""
 "Applocker","","1","critical:0, high:0, medium:, low:0, info:0","True","Enabled if AppLocker is enabled? 1 MB","Enabled. 256 MB+","",""
 "Bits-Client Operational","","8","critical:0, high:3, medium:2, low:2, info:0","True","Enabled. 1 MB","Enabled. 256 MB+","",""
