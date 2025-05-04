@@ -34,9 +34,9 @@ with m1:
         function(cellClassParams) {
              if (cellClassParams.data.DefaultSetting == "No Auditing") {
                 if (cellClassParams.data.RecommendedSetting === null || cellClassParams.data.RecommendedSetting == "No Auditing") {
-                    return {'background-color': 'lightsalmon'}
-                } else {
-                    return {'background-color': 'palegreen'}
+                    return {'background-color': 'lightgray'}
+                } else if (cellClassParams.data.RecommendedSetting) {
+                    return {'background-color': 'yellow'}
                 }
              } else {
                 return {'background-color': 'palegreen'}
