@@ -19,8 +19,29 @@ def create_bar_chart(data, title):
 
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
+
+# CSSで固定表示を設定
+st.markdown(
+    """
+    <style>
+    .fixed-selectbox {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+st.markdown('<div class="fixed-selectbox">', unsafe_allow_html=True)
 guide_org = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
 guide = guide_org.replace(" ", "")
+st.markdown('</div>', unsafe_allow_html=True)
 
 ### Audit settings
 m1, m2, = st.columns((3, 2))
@@ -137,3 +158,12 @@ with m2:
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
+
+footer = """
+<div class="footer">
+    Developed with ❤
+    <br>
+    <a href="https://twitter.com/nas_bench/">Nasreddine Bencherchali</a>
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
