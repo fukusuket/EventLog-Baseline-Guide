@@ -19,13 +19,13 @@ def create_bar_chart(data, title):
 
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
-guide = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
-guide = guide.replace(" ", "")
+guide_org = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
+guide = guide_org.replace(" ", "")
 
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 with m1:
-    st.markdown(f"<h2 style='text-align: center;'> {guide} Audit Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'> {guide_org} Audit Settings</h2>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 6, 5, 7, 2]
