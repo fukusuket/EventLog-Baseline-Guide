@@ -22,10 +22,18 @@ st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for E
 guide_org = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
 guide = guide_org.replace(" ", "-")
 
+guide_link  = {
+    "Windows Default": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
+    "YamatoSecurity": "https://github.com/Yamato-Security/EnableWindowsLogSettings",
+    "Australian Signals Directorate": "https://www.cyber.gov.au/resources-business-and-government/maintaining-devices-and-systems/system-hardening-and-administration/system-monitoring/windows-event-logging-and-forwarding",
+    "Microsoft": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
+    "CIS": ""
+}
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 with m1:
-    st.markdown(f"<h2 style='text-align: center;'> {guide_org} Audit Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>{guide_org} Audit Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>{guide_link[guide_org]}</h2>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 6, 5, 7, 2]
@@ -53,7 +61,8 @@ with m1:
     AgGrid(data=df, gridOptions=go, allow_unsafe_jscode=True, key='grid1', editable=True)
 
 with m2:
-    st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'></h2>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 4, 3, 7]
