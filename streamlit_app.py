@@ -33,7 +33,7 @@ guide_link  = {
 m1, m2, = st.columns((3, 2))
 with m1:
     st.markdown(f"<h2 style='text-align: center;'>{guide_org} Audit Settings</h2>", unsafe_allow_html=True)
-    st.markdown(f"<h2 style='text-align: center;'>{guide_link[guide_org]}</h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center;'>{guide_link[guide_org]}</p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 6, 5, 7, 2]
@@ -62,7 +62,7 @@ with m1:
 
 with m2:
     st.markdown(f"<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
-    st.markdown(f"<h2 style='text-align: center;'></h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center;'></p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 4, 3, 7]
