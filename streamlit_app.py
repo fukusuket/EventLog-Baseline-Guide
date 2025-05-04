@@ -20,27 +20,54 @@ def create_bar_chart(data, title):
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
 guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
-st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
-st.markdown(f"<p style='text-align: center;'>Please check audit setting!</p>", unsafe_allow_html=True)
-csv_file = "WELA-Audit-Result.csv"
-df = pd.read_csv(csv_file)
-columns_to_display = [0, 1, 2, 5, 6, 7]
-df = df.iloc[:, columns_to_display]
-cellStyle = JsCode(
-    r"""
-    function(cellClassParams) {
-         if (cellClassParams.data.Default == "No Auditing") {
-            return {'background-color': 'lightsalmon'}
-         } else {
-            return {'background-color': 'palegreen'}
-         }
-    }
-   """)
+m1, m2, = st.columns((2, 1))
+with m1:
+    st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center;'>Please check audit setting!</p>", unsafe_allow_html=True)
+    csv_file = "WELA-Audit-Result.csv"
+    df = pd.read_csv(csv_file)
+    columns_to_display = [0, 1, 2, 5, 6, 7]
+    df = df.iloc[:, columns_to_display]
+    cellStyle = JsCode(
+        r"""
+        function(cellClassParams) {
+             if (cellClassParams.data.Default == "No Auditing") {
+                return {'background-color': 'lightsalmon'}
+             } else {
+                return {'background-color': 'palegreen'}
+             }
+        }
+       """)
 
-grid_builder = GridOptionsBuilder.from_dataframe(df)
-grid_options = grid_builder.build()
-grid_options['defaultColDef']['cellStyle'] = cellStyle
-AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
+    grid_builder = GridOptionsBuilder.from_dataframe(df)
+    grid_options = grid_builder.build()
+    grid_options['defaultColDef']['cellStyle'] = cellStyle
+    AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
+with m2:
+    st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align: center;'>The following table shows the... </p>",
+        unsafe_allow_html=True)
+    csv_file = "WELA-FileSize-Result.csv"
+    df = pd.read_csv(csv_file)
+    columns_to_display = [0, 3, 4, 6, 7]
+    df = df.iloc[:, columns_to_display]
+    cellStyle = JsCode(
+        r"""
+        function(cellClassParams) {
+             if (cellClassParams.data.CorrectSetting == "N") {
+                return {'background-color': 'lightsalmon'}
+             } else {
+                return {'background-color': 'palegreen'}
+             }
+        }
+       """)
+
+    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
+    grid_options_unusable = grid_builder_unusable.build()
+    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle
+    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key="log_file_size", editable=True)
+
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
@@ -92,30 +119,3 @@ with m2:
     grid_options_unusable = grid_builder_unusable.build()
     grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
-
-st.markdown("<hr>", unsafe_allow_html=True)
-m1, m2, m3 = st.columns((1,3,1))
-with m2:
-    st.markdown("<h2 style='text-align: center;'>Evnet Log File Size Settings</h2>", unsafe_allow_html=True)
-    st.markdown(
-        "<p style='text-align: center;'>The following table shows the... </p>",
-        unsafe_allow_html=True)
-    csv_file = "WELA-FileSize-Result.csv"
-    df = pd.read_csv(csv_file)
-    columns_to_display = [0, 3, 4, 6, 7]
-    df = df.iloc[:, columns_to_display]
-    cellStyle = JsCode(
-        r"""
-        function(cellClassParams) {
-             if (cellClassParams.data.CorrectSetting == "N") {
-                return {'background-color': 'lightsalmon'}
-             } else {
-                return {'background-color': 'palegreen'}
-             }
-        }
-       """)
-
-    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
-    grid_options_unusable = grid_builder_unusable.build()
-    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle
-    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key="log_file_size", editable=True)
