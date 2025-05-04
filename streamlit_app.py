@@ -19,7 +19,7 @@ def create_bar_chart(data, title):
 
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
-guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "CIS", "ACSC", "AD"])
+guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
 st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
 st.markdown(f"<p style='text-align: center;'>Please check audit setting!</p>", unsafe_allow_html=True)
 csv_file = "WELA-Audit-Result.csv"
