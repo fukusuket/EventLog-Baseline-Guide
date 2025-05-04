@@ -29,7 +29,7 @@ df = df.iloc[:, columns_to_display]
 cellStyle = JsCode(
     r"""
     function(cellClassParams) {
-         if (cellClassParams.data.DefaultSetting == "No Auditing") {
+         if (cellClassParams.data.Default == "No Auditing") {
             return {'background-color': 'lightsalmon'}
          } else {
             return {'background-color': 'palegreen'}
