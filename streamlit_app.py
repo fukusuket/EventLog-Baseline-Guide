@@ -30,9 +30,9 @@ cellStyle = JsCode(
     r"""
     function(cellClassParams) {
          if (cellClassParams.data.DefaultSetting == "No Auditing") {
-            return {'background-color': 'gold'}
+            return {'background-color': 'lightsalmon'}
          } else {
-            return {'background-color': 'lightcyan'}
+            return {'background-color': 'lightgreen'}
          }
     }
    """)
@@ -60,7 +60,7 @@ with m1:
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
-            return {'background-color': 'lightcyan'}
+            return {'background-color': 'lightgreen'}
         }
         """
     )
@@ -83,7 +83,7 @@ with m2:
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
-            return {'background-color': 'gold'}
+            return {'background-color': 'lightsalmon'}
         }
         """
     )
@@ -103,7 +103,7 @@ with m2:
         r"""
         function(cellClassParams) {
              if (cellClassParams.data.CorrectSetting == "N") {
-                return {'background-color': 'tomato'}
+                return {'background-color': 'lightsalmon'}
              } else {
                 return {'background-color': 'lightgreen'}
              }
