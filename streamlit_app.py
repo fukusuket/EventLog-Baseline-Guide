@@ -20,7 +20,7 @@ def create_bar_chart(data, title):
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
 guide_org = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
-guide = guide_org.replace(" ", "")
+guide = guide_org.replace(" ", "-")
 
 ### Audit settings
 m1, m2, = st.columns((3, 2))
