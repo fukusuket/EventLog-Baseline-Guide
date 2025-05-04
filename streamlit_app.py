@@ -34,7 +34,7 @@ cellStyle = JsCode(
          } else {
             return {'background-color': 'lightcyan'}
          }
-        }
+    }
    """)
 
 grid_builder = GridOptionsBuilder.from_dataframe(df)
@@ -57,7 +57,18 @@ with m1:
     st.markdown(f"<h3 style='text-align: center;'>Usable Rules ({total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
     st.markdown("<h3 style='text-align: center;'>Usable Rules List</h3>", unsafe_allow_html=True)
-    AgGrid(df, key="usable_rules", editable=True)
+    cellStyle_unusable = JsCode(
+        r"""
+        function(cellClassParams) {
+            return {'background-color': 'lightcyan'}
+        }
+        """
+    )
+
+    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
+    grid_options_unusable = grid_builder_unusable.build()
+    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
+    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='usable_rules', editable=True)
 
 with m2:
     csv_file = "UnusableRules.csv"
@@ -70,7 +81,18 @@ with m2:
     st.markdown(f"<h3 style='text-align: center;'>Unusable Rules ({total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
     st.markdown("<h3 style='text-align: center;'>Unusable Rules List</h3>", unsafe_allow_html=True)
-    AgGrid(df, key="un_usable_rules", editable=True)
+    cellStyle_unusable = JsCode(
+        r"""
+        function(cellClassParams) {
+            return {'background-color': 'gold'}
+        }
+        """
+    )
+
+    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
+    grid_options_unusable = grid_builder_unusable.build()
+    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
+    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
 
 st.markdown("<hr>", unsafe_allow_html=True)
 m1, m2, m3 = st.columns((1,11,1))
@@ -78,4 +100,18 @@ with m2:
     st.markdown("<h2 style='text-align: center;'>Evnet Log File Size</h2>", unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
-    AgGrid(df, key="C")
+    cellStyle = JsCode(
+        r"""
+        function(cellClassParams) {
+             if (cellClassParams.data.CorrectSetting == "N") {
+                return {'background-color': 'tomato'}
+             } else {
+                return {'background-color': 'lightgreen'}
+             }
+        }
+       """)
+
+    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
+    grid_options_unusable = grid_builder_unusable.build()
+    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle
+    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key="log_file_size", editable=True)
