@@ -20,6 +20,8 @@ def create_bar_chart(data, title):
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
 guid = st.selectbox('', ["Windows Default", "YamatoSecurity", "Microsoft", "ACSC", "AUD", "CIS"])
+
+### Audit settings
 m1, m2, = st.columns((2, 1))
 with m1:
     st.markdown(f"<h2 style='text-align: center;'> {guid} Audit Settings</h2>", unsafe_allow_html=True)
@@ -42,6 +44,7 @@ with m1:
     grid_options = grid_builder.build()
     grid_options['defaultColDef']['cellStyle'] = cellStyle
     AgGrid(data=df, gridOptions=grid_options, allow_unsafe_jscode=True, key='grid1', editable=True)
+
 with m2:
     st.markdown("<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
     csv_file = "WELA-FileSize-Result.csv"
@@ -64,6 +67,8 @@ with m2:
     grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle
     AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key="log_file_size", editable=True)
 
+
+### Sigma Rule Statistics
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
@@ -77,8 +82,12 @@ with m1:
     data = df["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
+
+    ## Bar chart
     st.markdown(f"<h3 style='text-align: center;'>Usable Rules (Total: {total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
+
+    ## List
     st.markdown(f"<h3 style='text-align: center;'>Usable Rules List (Total: {total})</h3>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
@@ -87,10 +96,11 @@ with m1:
         }
         """
     )
-    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
-    grid_options_unusable = grid_builder_unusable.build()
-    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
-    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='usable_rules', editable=True)
+    gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_column("title", pinned="left", width=150)
+    go = gb.build()
+    go['defaultColDef']['cellStyle'] = cellStyle_unusable
+    AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='usable_rules', editable=True)
 
 with m2:
     csv_file = "UnusableRules.csv"
@@ -100,8 +110,12 @@ with m2:
     data = df["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
+
+    ## Bar chart
     st.markdown(f"<h3 style='text-align: center;'>Unusable Rules (Total: {total})</h3>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
+
+    ## List
     st.markdown(f"<h3 style='text-align: center;'>Unusable Rules List (Total: {total})</h3>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
@@ -111,7 +125,8 @@ with m2:
         """
     )
 
-    grid_builder_unusable = GridOptionsBuilder.from_dataframe(df)
-    grid_options_unusable = grid_builder_unusable.build()
-    grid_options_unusable['defaultColDef']['cellStyle'] = cellStyle_unusable
-    AgGrid(df, gridOptions=grid_options_unusable, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
+    gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_column("title", pinned="left", width=150)
+    go = gb.build()
+    go['defaultColDef']['cellStyle'] = cellStyle_unusable
+    AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
