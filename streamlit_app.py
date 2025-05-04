@@ -36,20 +36,6 @@ with m1:
 with m2:
     st.markdown("<h3 style='text-align: center;'>Unusable Rules (1,455)</h3>", unsafe_allow_html=True)
 
-# レベルごとのデータを作成
-data1 = pd.DataFrame({
-    "Level": ["information", "low", "medium", "high", "critical"],
-    "Value": [10, 20, 30, 25, 15]
-})
-data2 = pd.DataFrame({
-    "Level": ["information", "low", "medium", "high", "critical"],
-    "Value": [5, 15, 25, 35, 20]
-})
-data3 = pd.DataFrame({
-    "Level": ["information", "low", "medium", "high", "critical"],
-    "Value": [8, 18, 28, 22, 12]
-})
-
 color_scale = alt.Scale(domain=["information", "low", "medium", "high", "critical"],
                         range=["#00FFFF", "#00FF00", "#FFFF00", "#FFAF00", "#FF0000"])
 
@@ -68,6 +54,10 @@ def create_bar_chart(data, title):
 m1, m2 = st.columns(2)
 level_order = ["critical", "high", "medium", "low", "informational"]
 with m1:
+    data1 = pd.DataFrame({
+        "Level": ["information", "low", "medium", "high", "critical"],
+        "Value": [10, 20, 30, 25, 15]
+    })
     st.altair_chart(create_bar_chart(data1, ""), use_container_width=True)
     csv_file = "UsableRules.csv"
     df1 = pd.read_csv(csv_file)
@@ -77,6 +67,10 @@ with m1:
     AgGrid(df1, key="A", editable=True)
 
 with m2:
+    data2 = pd.DataFrame({
+        "Level": ["information", "low", "medium", "high", "critical"],
+        "Value": [5, 15, 25, 35, 20]
+    })
     st.altair_chart(create_bar_chart(data2, ""), use_container_width=True)
     csv_file = "UnusableRules.csv"
     df2 = pd.read_csv(csv_file)
