@@ -18,6 +18,11 @@ jobs:
           repository: Yamato-Security/EnableWindowsLogSettings
           path: EnableWindowsLogSettings
 
+      - name: Run EnableWindowsLogSettings
+        run: |
+          cd EnableWindowsLogSettings
+          ./YamatoSecurityConfigureWinEventLogs.bat
+
       - name: Checkout WELA repository
         uses: actions/checkout@v4
         with:
