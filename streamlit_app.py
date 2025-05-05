@@ -70,7 +70,7 @@ with m2:
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-            return {'background-color': 'palegreen'}
+            return {'background-color': 'yellow'}
         }
        """)
 
