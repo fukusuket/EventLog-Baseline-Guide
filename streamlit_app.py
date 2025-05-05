@@ -70,7 +70,11 @@ with m2:
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-            return {'background-color': 'yellow'}
+             if (cellClassParams.data.DefaultSetting === null ) {
+                return {'background-color': `gray`}
+             } else {
+                return {'background-color': 'yellow'}
+             }
         }
        """)
 
