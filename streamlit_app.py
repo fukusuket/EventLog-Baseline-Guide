@@ -71,7 +71,7 @@ with m2:
         r"""
         function(cellClassParams) {
              if (cellClassParams.data.Recommended === null ) {
-                return {'background-color': `gray`}
+                return {'background-color': `lightgray`}
              } else {
                 return {'background-color': 'yellow'}
              }
