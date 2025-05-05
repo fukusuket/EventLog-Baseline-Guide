@@ -65,12 +65,12 @@ with m2:
     st.markdown(f"<p style='text-align: center;'>TBD</p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 4, 3, 7]
+    columns_to_display = [0, 4, 3]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-             if (cellClassParams.data.CorrectSetting == "N") {
+             if (cellClassParams.data.RecommendedSetting === null) {
                 return {'background-color': 'lightsalmon'}
              } else {
                 return {'background-color': 'palegreen'}
