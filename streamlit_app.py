@@ -27,8 +27,8 @@ guide_link  = {
     "Windows Default": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
     "YamatoSecurity": "https://github.com/Yamato-Security/EnableWindowsLogSettings",
     "Australian Signals Directorate": "https://www.cyber.gov.au/resources-business-and-government/maintaining-devices-and-systems/system-hardening-and-administration/system-monitoring/windows-event-logging-and-forwarding",
-    "Microsoft": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
-    "CIS": ""
+    "Microsoft(Server)": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
+    "Microsoft(Client)": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
 }
 ### Audit settings
 m1, m2, = st.columns((3, 2))
@@ -62,7 +62,7 @@ with m1:
     AgGrid(data=df, gridOptions=go, allow_unsafe_jscode=True, key='grid1', editable=True)
 
 with m2:
-    st.markdown(f"<h2 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'>TBD</p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
@@ -87,7 +87,7 @@ with m2:
 
 ### Sigma Rule Statistics
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
 
 level_order = ["critical", "high", "medium", "low", "informational"]
