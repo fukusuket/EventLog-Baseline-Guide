@@ -96,8 +96,7 @@ df_unusable = pd.read_csv(f"{guide}-UnusableRules.csv")
 m1, m2, = st.columns(2)
 with m1:
     df_usable["level"] = pd.Categorical(df_usable["level"], categories=level_order, ordered=True)
-    df_usable = df_usable.sort_values("level")
-    data = df_usable["level"].value_counts().reindex(level_order).reset_index()
+    data = df_usable.sort_values("level")["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
@@ -118,13 +117,12 @@ with m1:
     gb.configure_column("title", pinned="left", width=150)
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
-    AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='usable_rules', editable=True)
+    AgGrid(df_usable, gridOptions=go, allow_unsafe_jscode=True, key='usable_rules', editable=True)
 
 
 with m2:
     df_unusable["level"] = pd.Categorical(df_unusable["level"], categories=level_order, ordered=True)
-    df_unusable = df_unusable.sort_values("level")
-    data = df_unusable["level"].value_counts().reindex(level_order).reset_index()
+    data = df_unusable.sort_values("level")["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
@@ -141,12 +139,11 @@ with m2:
         }
         """
     )
-
     gb = GridOptionsBuilder.from_dataframe(df_unusable)
     gb.configure_column("title", pinned="left", width=150)
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
-    AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
+    AgGrid(df_unusable, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
 
 m1, m2, m3, m4 = st.columns(4)
 with m1:
