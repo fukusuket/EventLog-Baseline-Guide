@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+import plotly.express as px
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
 def create_bar_chart(data, title):
@@ -88,14 +89,15 @@ with m2:
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
-m1, m2, = st.columns(2)
+
 level_order = ["critical", "high", "medium", "low", "informational"]
+df_usable = pd.read_csv(f"{guide}-UsableRules.csv")
+df_unusable = pd.read_csv(f"{guide}-UnusableRules.csv")
+m1, m2, = st.columns(2)
 with m1:
-    csv_file = f"{guide}-UsableRules.csv"
-    df = pd.read_csv(csv_file)
-    df["level"] = pd.Categorical(df["level"], categories=level_order, ordered=True)
-    df = df.sort_values("level")
-    data = df["level"].value_counts().reindex(level_order).reset_index()
+    df_usable["level"] = pd.Categorical(df_usable["level"], categories=level_order, ordered=True)
+    df_usable = df_usable.sort_values("level")
+    data = df_usable["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
@@ -112,7 +114,7 @@ with m1:
         }
         """
     )
-    gb = GridOptionsBuilder.from_dataframe(df)
+    gb = GridOptionsBuilder.from_dataframe(df_usable)
     gb.configure_column("title", pinned="left", width=150)
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
@@ -120,11 +122,9 @@ with m1:
 
 
 with m2:
-    csv_file = f"{guide}-UnusableRules.csv"
-    df = pd.read_csv(csv_file)
-    df["level"] = pd.Categorical(df["level"], categories=level_order, ordered=True)
-    df = df.sort_values("level")
-    data = df["level"].value_counts().reindex(level_order).reset_index()
+    df_unusable["level"] = pd.Categorical(df_unusable["level"], categories=level_order, ordered=True)
+    df_unusable = df_unusable.sort_values("level")
+    data = df_unusable["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
@@ -142,11 +142,41 @@ with m2:
         """
     )
 
-    gb = GridOptionsBuilder.from_dataframe(df)
+    gb = GridOptionsBuilder.from_dataframe(df_unusable)
     gb.configure_column("title", pinned="left", width=150)
     go = gb.build()
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
+
+m1, m2, m3, m4 = st.columns(4)
+with m1:
+    data = df_usable["service"].dropna()
+    count = data.shape[0]
+    fig = px.pie(data, names="service", title="")
+    st.markdown(f"<h3 style='text-align: center;'>Usable Service (Total:{count})</h3>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="usable_service")
+
+with m2:
+    data = df_usable["category"].dropna()
+    count = data.shape[0]
+    fig = px.pie(data, names="category", title="")
+    st.markdown(f"<h3 style='text-align: center;'>Usable Category (Total:{count})</h3>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="usable_category")
+
+with m3:
+    data = df_unusable["service"].dropna()
+    count = data.shape[0]
+    fig = px.pie(data, names="service", title="")
+    st.markdown(f"<h3 style='text-align: center;'>Unusable Service (Total:{count})</h3>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="unusable_service")
+
+with m4:
+    data = df_unusable["category"].dropna()
+    count = data.shape[0]
+    fig = px.pie(data, names="category", title="")
+    st.markdown(f"<h3 style='text-align: center;'>Unusable Category (Total:{count})</h3>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="unusable_cateogry")
+
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>Recommended Setting bat</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>The following bat file can be used to set the recommended settings.</p>", unsafe_allow_html=True)
