@@ -96,7 +96,8 @@ df_unusable = pd.read_csv(f"{guide}-UnusableRules.csv")
 m1, m2, = st.columns(2)
 with m1:
     df_usable["level"] = pd.Categorical(df_usable["level"], categories=level_order, ordered=True)
-    data = df_usable.sort_values("level")["level"].value_counts().reindex(level_order).reset_index()
+    df_usable.sort_values("level", inplace=True)
+    data = df_usable["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
@@ -122,7 +123,8 @@ with m1:
 
 with m2:
     df_unusable["level"] = pd.Categorical(df_unusable["level"], categories=level_order, ordered=True)
-    data = df_unusable.sort_values("level")["level"].value_counts().reindex(level_order).reset_index()
+    df_unusable.sort_values("level", inplace=True)
+    data = df_unusable["level"].value_counts().reindex(level_order).reset_index()
     data.columns = ["Level", "Value"]
     total = data["Value"].sum()
 
