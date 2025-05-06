@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -18,11 +20,11 @@ def create_bar_chart(data, title):
     )
     return chart
 
+### Title and SelectBox
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
-guide_org = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft", "CIS"])
-guide = guide_org.replace(" ", "-")
-
+selected_guide = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft(Server)", "Microsoft(Client)"], index=0)
+data_path = Path("./data") / selected_guide.replace(" ", "_").replace("(", "_")
 guide_link  = {
     "Windows Default": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
     "YamatoSecurity": "https://github.com/Yamato-Security/EnableWindowsLogSettings",
@@ -30,12 +32,13 @@ guide_link  = {
     "Microsoft(Server)": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
     "Microsoft(Client)": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations",
 }
+
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 with m1:
-    st.markdown(f"<h3 style='text-align: center;'>{guide_org} Audit Settings</h3>", unsafe_allow_html=True)
-    st.markdown(f"<p style='text-align: center;'><a href='{guide_link[guide_org]}' target='_blank'>{guide_link[guide_org]}</a></p>", unsafe_allow_html=True)
-    csv_file = f"{guide}-WELA-Audit-Result.csv"
+    st.markdown(f"<h3 style='text-align: center;'>{selected_guide} Audit Settings</h3>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
+    csv_file = data_path.joinpath("WELA-Audit-Result.csv")
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 1, 6, 5, 7, 2]
     df = df.iloc[:, columns_to_display]
@@ -64,7 +67,7 @@ with m1:
 with m2:
     st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'>TBD</p>", unsafe_allow_html=True)
-    csv_file = f"{guide}-WELA-FileSize-Result.csv"
+    csv_file = data_path.joinpath("WELA-FileSize-Result.csv")
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 4, 3]
     df = df.iloc[:, columns_to_display]
@@ -91,8 +94,8 @@ st.markdown("<h3 style='text-align: center;'>Statistics on Usable and Unusable S
 st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
 
 level_order = ["critical", "high", "medium", "low", "informational"]
-df_usable = pd.read_csv(f"{guide}-UsableRules.csv")
-df_unusable = pd.read_csv(f"{guide}-UnusableRules.csv")
+df_usable = pd.read_csv(data_path.joinpath("UsableRules.csv"))
+df_unusable = pd.read_csv(data_path.joinpath("UnusableRules.csv"))
 m1, m2, = st.columns(2)
 with m1:
     df_usable["level"] = pd.Categorical(df_usable["level"], categories=level_order, ordered=True)
