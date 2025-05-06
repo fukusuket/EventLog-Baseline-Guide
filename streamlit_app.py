@@ -33,7 +33,7 @@ guide_link  = {
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 with m1:
-    st.markdown(f"<h2 style='text-align: center;'>{guide_org} Audit Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>{guide_org} Audit Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[guide_org]}' target='_blank'>{guide_link[guide_org]}</a></p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-Audit-Result.csv"
     df = pd.read_csv(csv_file)
@@ -62,7 +62,7 @@ with m1:
     AgGrid(data=df, gridOptions=go, allow_unsafe_jscode=True, key='grid1', editable=True)
 
 with m2:
-    st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'>TBD</p>", unsafe_allow_html=True)
     csv_file = f"{guide}-WELA-FileSize-Result.csv"
     df = pd.read_csv(csv_file)
