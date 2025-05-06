@@ -151,28 +151,28 @@ m1, m2, m3, m4 = st.columns(4)
 with m1:
     data = df_usable["service"].dropna()
     count = data.shape[0]
-    fig = px.pie(data, names="service", title="")
+    fig = px.pie(data, names="service", title="", color_discrete_sequence=px.colors.qualitative.D3)
     st.markdown(f"<h3 style='text-align: center;'>Usable Service (Total:{count})</h3>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="usable_service")
 
 with m2:
     data = df_usable["category"].dropna()
     count = data.shape[0]
-    fig = px.pie(data, names="category", title="")
+    fig = px.pie(data, names="category", title="", color_discrete_sequence=px.colors.qualitative.D3)
     st.markdown(f"<h3 style='text-align: center;'>Usable Category (Total:{count})</h3>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="usable_category")
 
 with m3:
     data = df_unusable["service"].dropna()
     count = data.shape[0]
-    fig = px.pie(data, names="service", title="")
+    fig = px.pie(data, names="service", title="", color_discrete_sequence=px.colors.sequential.Sunset)
     st.markdown(f"<h3 style='text-align: center;'>Unusable Service (Total:{count})</h3>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="unusable_service")
 
 with m4:
     data = df_unusable["category"].dropna()
     count = data.shape[0]
-    fig = px.pie(data, names="category", title="")
+    fig = px.pie(data, names="category", title="", color_discrete_sequence=px.colors.sequential.Sunset)
     st.markdown(f"<h3 style='text-align: center;'>Unusable Category (Total:{count})</h3>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="unusable_cateogry")
 
