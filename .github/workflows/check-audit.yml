@@ -19,6 +19,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Checkout WELA repository
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/WELA
+          path: WELA
+
       - name: Run configure bat(ASD)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
@@ -36,12 +42,6 @@ jobs:
         run: |
           cd bat
           ./Microsoft_Server.bat
-
-      - name: Checkout WELA repository
-        uses: actions/checkout@v4
-        with:
-          repository: Yamato-Security/WELA
-          path: WELA
 
       - name: Run WELA.ps1 audit-settings
         run: |
@@ -77,6 +77,25 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/Microsoft_Client/ -Force
 
+      - name: Delete WELA repo
+        run: |
+          Remove-Item -Recurse -Force WELA
+
+      - name: Pull Git repo
+        run: |
+          git pull origin main
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply changes
+
+      - name: Checkout WELA repository
+        if: ${{ matrix.os == 'windows-2019' }}
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/WELA
+          path: WELA
+
       - name: Run configure bat(YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
@@ -101,14 +120,12 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
 
-      - name: Delete WELA repo
-        run: |
-          Remove-Item -Recurse -Force WELA
-
       - name: Pull Git repo
+        if: ${{ matrix.os == 'windows-2019' }}
         run: |
           git pull origin main
 
       - uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ matrix.os == 'windows-2019' }}
         with:
           commit_message: Apply changes
