@@ -101,6 +101,10 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
 
+      - name: Pull Git repo
+        run: |
+          git pull origin main
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply changes
