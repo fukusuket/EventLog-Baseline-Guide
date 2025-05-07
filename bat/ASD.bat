@@ -1,3 +1,7 @@
+wevtutil sl Security /ms:2147483648
+wevtutil sl System /ms:67108864
+wevtutil sl Application /ms:67108864
+
 :: Enable PowerShell Module logging
 reg add HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging /v EnableModuleLogging /f /t REG_DWORD /d 1
 reg add HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames  /f /v ^* /t REG_SZ /d ^*
