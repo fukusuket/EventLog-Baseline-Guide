@@ -61,7 +61,6 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           cd WELA
-          mkdir -Force ../data/Australian_Signals_Directorate
           Copy-Item *.csv ../data/Australian_Signals_Directorate/ -Force
 
       - name: Move WELA result files (Microsoft_Server)
