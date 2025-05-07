@@ -136,6 +136,7 @@ jobs:
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
 
       - name: Delete WELA repo
+        if: ${{ matrix.os == 'windows-2019' }}
         run: |
           Remove-Item -Recurse -Force WELA
 
