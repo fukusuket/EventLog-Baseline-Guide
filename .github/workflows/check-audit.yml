@@ -120,6 +120,10 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
 
+      - name: Delete WELA repo
+        run: |
+          Remove-Item -Recurse -Force WELA
+
       - name: Pull Git repo
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
