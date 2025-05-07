@@ -375,13 +375,23 @@ An adversary might compress data (e.g., sensitive documents) that is collected p
 I am filtering out these events as they are being created with the ""Potentially Malicious PwSh"" rule.
 ","0f3b1343-65a5-4879-b512-9d61b0e4e3ba"
 "Potentially Malicious PwSh","medium","powershell","ps_script","On Powershell v5+, Windows will automatically log suspicious powershell execution and mark the Level as Warning.","73be1519-4648-4ed7-b305-605504afc242"
+"Possible DC Shadow Attack","medium","security","","Detects DCShadow via create new SPN","c800ccd5-5818-b0f5-1a12-f9c8bc24a433"
+"Active Directory User Backdoors","high","security","","Detects scenarios where one can control another users or computers account without having to use their credentials.","c9123898-04d5-2d3b-5e2b-7c0c92111480"
 "Correct Execution of Nltest.exe","high","security","","The attacker might use LOLBAS nltest.exe for discovery of domain controllers, domain trusts, parent domain and the current user permissions.","83c2f19e-f588-1826-fc7d-cf7f4db7031a"
 "AD Privileged Users or Groups Reconnaissance","high","security","","Detect priv users or groups recon based on 4661 eventid and known privileged users or groups SIDs","93c95eee-748a-e1db-18a5-f40035167086"
 "Password Policy Enumerated","medium","security","","Detects when the password policy is enumerated.","9bcf333e-fc4c-5912-eeba-8a0cefe21be4"
 "Reconnaissance Activity","high","security","","Detects activity as ""net user administrator /domain"" and ""net group domain admins /domain""","5ac4b7f8-9412-f919-220c-aa8a1867b1ef"
+"Suspicious LDAP-Attributes Used","high","security","","Detects the usage of particular AttributeLDAPDisplayNames, which are known for data exchange via LDAP by the tool LDAPFragger and are additionally not commonly used in companies.","925d441a-37b4-0afa-1d98-809b5df5fd06"
+"Active Directory User Backdoors","high","security","","Detects scenarios where one can control another users or computers account without having to use their credentials.","c9123898-04d5-2d3b-5e2b-7c0c92111480"
+"Group Policy Abuse for Privilege Addition","medium","security","","Detects the first occurrence of a modification to Group Policy Object Attributes to add privileges to user accounts or use them to add users as local admins.
+","6e3066ef-54e1-9d1b-5bc6-9ae6947ae271"
 "Persistence and Execution at Scale via GPO Scheduled Task","high","security","","Detect lateral movement using GPO scheduled task, usually used to deploy ransomware at scale","01628b51-85e1-4088-9432-a11cba9f3ebd"
+"Powerview Add-DomainObjectAcl DCSync AD Extend Right","high","security","","Backdooring domain object to grant the rights associated with DCSync to a regular user or machine account using Powerview\Add-DomainObjectAcl DCSync Extended Right cmdlet, will allow to re-obtain the pwd hashes of any user/computer","e92d7fea-4127-4b6c-a889-3f0b89f7b567"
+"Possible DC Shadow Attack","medium","security","","Detects DCShadow via create new SPN","c800ccd5-5818-b0f5-1a12-f9c8bc24a433"
 "Startup/Logon Script Added to Group Policy Object","medium","security","","Detects the modification of Group Policy Objects (GPO) to add a startup/logon script to users or computer objects.
 ","bc613d09-5a80-cad3-6f65-c5020f960511"
+"Possible Shadow Credentials Added","high","security","","Detects possible addition of shadow credentials to an active directory object.","8bcf1772-4335-28e1-e320-5ce48b15ae9f"
+"Dir Svc Obj Modified","informational","security","","Directory Service Object Modified. Log written only to domain controllers (2008+)","22ee9fb7-64ca-4eed-92de-d1dbef1170b8"
 "ADCS Certificate Template Configuration Vulnerability with Risky EKU","high","security","","Detects certificate creation with template allowing risk permission subject and risky EKU","aa2d5bf7-bc73-068e-a4df-a887cc3aba2b"
 "ADCS Certificate Template Configuration Vulnerability","low","security","","Detects certificate creation with template allowing risk permission subject","3a655a7c-a830-77ad-fc8b-f054fb713304"
 "SMB Create Remote File Admin Share","high","security","","Look for non-system accounts SMB accessing a file with write (0x2) access mask via administrative share (i.e C$).","37f5d188-182d-7a53-dca7-4bebbb6ce43e"
