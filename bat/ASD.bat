@@ -1,0 +1,1 @@
+wevtutil sl Security /ms:1073741824
