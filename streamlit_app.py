@@ -66,7 +66,10 @@ with m1:
 
 with m2:
     st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h3>", unsafe_allow_html=True)
-    st.markdown(f"<p style='text-align: center;'>TBD</p>", unsafe_allow_html=True)
+    msg = "TBD"
+    if selected_guide != "YamatoSecurity":
+        msg = f"{selected_guide} does not include any recommended settings regarding log size."
+    st.markdown(f"<p style='text-align: center;'>{msg}</p>", unsafe_allow_html=True)
     csv_file = data_path.joinpath("WELA-FileSize-Result.csv")
     df = pd.read_csv(csv_file)
     columns_to_display = [0, 4, 3]
