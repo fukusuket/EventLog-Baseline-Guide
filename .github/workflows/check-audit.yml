@@ -124,7 +124,7 @@ jobs:
           $auditData | Export-Csv $auditCsvPath -NoTypeInformation -Encoding UTF8
       
           # WELA-FileSize-Result.csvのRecommended列を空白にする
-          $fileSizeCsvPath = "./WELA/Windows_Default/WELA-FileSize-Result.csv"
+          $fileSizeCsvPath = "./WELA/WELA-FileSize-Result.csv"
           $fileSizeData = Import-Csv $fileSizeCsvPath
           $fileSizeData | ForEach-Object { $_.Recommended = "" }
           $fileSizeData | Export-Csv $fileSizeCsvPath -NoTypeInformation -Encoding UTF8
