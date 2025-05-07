@@ -80,17 +80,17 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/Australian_Signals_Directorate/ -Force
 
-      - name: Move WELA result files (Microsoft_Server)
+      - name: Move WELA result files (Microsoft_Client)
         if: ${{ matrix.os == 'windows-2025' }}
         run: |
           cd WELA
-          Copy-Item *.csv ../data/Microsoft_Server/ -Force
+          Copy-Item *.csv ../data/Microsoft_Client/ -Force
 
-      - name: Move WELA result files (Microsoft_Client)
+      - name: Move WELA result files (Microsoft_Server)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           cd WELA
-          Copy-Item *.csv ../data/Microsoft_Client/ -Force
+          Copy-Item *.csv ../data/Microsoft_Server/ -Force
 
       - name: Delete WELA repo
         run: |
