@@ -55,25 +55,25 @@ jobs:
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
           cd WELA
-          mv *.csv ../data/Windows_Default/
+          Copy-Item *.csv ../data/Windows_Default/ -Force
 
       - name: Move WELA result files (ASD)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           cd WELA
-          mv *.csv ../data/Australian_Signals_Directorate/
+          Copy-Item *.csv ../data/Australian_Signals_Directorate/ -Force
 
       - name: Move WELA result files (Microsoft_Server)
         if: ${{ matrix.os == 'windows-2025' }}
         run: |
           cd WELA
-          mv *.csv ../data/Microsoft_Server/
+          Copy-Item *.csv ../data/Microsoft_Server/ -Force
 
       - name: Move WELA result files (Microsoft_Client)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           cd WELA
-          mv *.csv ../data/Microsoft_Client/
+          Copy-Item *.csv ../data/Microsoft_Client/ -Force
 
       - name: Run configure bat(YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
