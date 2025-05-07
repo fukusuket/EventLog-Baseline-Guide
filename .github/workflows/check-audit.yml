@@ -51,12 +51,6 @@ jobs:
           cd WELA
           ./WELA.ps1 audit-filesize
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: WELA/*.csv
-
       - name: Run configure bat(YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
