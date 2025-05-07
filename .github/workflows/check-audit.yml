@@ -7,9 +7,11 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     strategy:
       matrix:
-        os: [windows-2019, windows-2022, windows-2025, windows-latest]
+        os: [ windows-2019, windows-2022, windows-2025, windows-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -98,3 +100,7 @@ jobs:
         run: |
           cd WELA
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply changes
