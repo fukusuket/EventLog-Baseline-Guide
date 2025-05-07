@@ -53,7 +53,7 @@ jobs:
           cd WELA
           ./WELA.ps1 audit-filesize
 
-      - name: Convert csv result (Default)
+      - name: Convert audit csv result (Default)
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
           # WELA-Audit-Result.csvのRecommendedSetting列を空白にする
@@ -61,7 +61,9 @@ jobs:
           $auditData = Import-Csv $auditCsvPath
           $auditData | ForEach-Object { $_.RecommendedSetting = "" }
           $auditData | Export-Csv $auditCsvPath -NoTypeInformation -Encoding UTF8
-      
+
+      - name: Convert file size csv result
+        run: |      
           # WELA-FileSize-Result.csvのRecommended列を空白にする
           $fileSizeCsvPath = "./WELA/WELA-FileSize-Result.csv"
           $fileSizeData = Import-Csv $fileSizeCsvPath
