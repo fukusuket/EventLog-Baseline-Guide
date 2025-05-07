@@ -51,6 +51,30 @@ jobs:
           cd WELA
           ./WELA.ps1 audit-filesize
 
+      - name: Move WELA result files (Default)
+        if: ${{ matrix.os == 'windows-2019' }}
+        run: |
+          cd WELA
+          mv *.csv ../data/Windows_Default/
+
+      - name: Move WELA result files (ASD)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          cd WELA
+          mv *.csv ../data/Australian_Signals_Directorate/
+
+      - name: Move WELA result files (Microsoft_Server)
+        if: ${{ matrix.os == 'windows-2025' }}
+        run: |
+          cd WELA
+          mv *.csv ../data/Microsoft_Server/
+
+      - name: Move WELA result files (Microsoft_Client)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          cd WELA
+          mv *.csv ../data/Microsoft_Client/
+
       - name: Run configure bat(YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
