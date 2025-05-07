@@ -3,6 +3,8 @@ name: Run WELA Audit
 on:
   push:
     branches: [ "*" ]
+  schedule:
+    - cron: '0 20 * * *'
   workflow_dispatch:
 
 jobs:
