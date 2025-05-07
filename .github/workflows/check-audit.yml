@@ -15,17 +15,17 @@ jobs:
       - name: Run configure bat(ASD)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          ./ASD.bat
+          ./bat/ASD.bat
 
       - name: Run configure bat(MS Client)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          ./Microsoft_Client.bat
+          ./bat/Microsoft_Client.bat
 
       - name: Run configure bat(MS Server)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          ./Microsoft_Server.bat
+          ./bat/Microsoft_Server.bat
 
       - name: Checkout WELA repository
         uses: actions/checkout@v4
