@@ -101,6 +101,11 @@ jobs:
           cd WELA
           Copy-Item *.csv ../data/YamatoSecurity/ -Force
 
+      - name: Delete WELA repo
+        run: |
+          cd ..
+          Remove-Item -Recurse -Force WELA
+
       - name: Pull Git repo
         run: |
           git pull origin main
