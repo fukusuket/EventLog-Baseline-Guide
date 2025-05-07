@@ -15,17 +15,17 @@ jobs:
       - name: Run configure bat(ASD)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          ./bat/ASD.bat
+          powershell -Command "Start-Process -FilePath './bat/ASD.bat' -NoNewWindow -Wait"
 
       - name: Run configure bat(MS Client)
         if: ${{ matrix.os == 'windows-2025' }}
         run: |
-          ./bat/Microsoft_Client.bat
+          powershell -Command "Start-Process -FilePath './bat/Microsoft_Client.bat' -NoNewWindow -Wait"
 
       - name: Run configure bat(MS Server)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          ./bat/Microsoft_Server.bat
+          powershell -Command "Start-Process -FilePath './bat/Microsoft_Server.bat' -NoNewWindow -Wait"
 
       - name: Checkout WELA repository
         uses: actions/checkout@v4
@@ -52,4 +52,4 @@ jobs:
       - name: Run configure bat(YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
-          ./bat/YamatoSecurity.bat
+          powershell -Command "Start-Process -FilePath './bat/YamatoSecurity.bat' -NoNewWindow -Wait"
