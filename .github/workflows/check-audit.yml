@@ -18,7 +18,7 @@ jobs:
           ./bat/ASD.bat
 
       - name: Run configure bat(MS Client)
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2025' }}
         run: |
           ./bat/Microsoft_Client.bat
 
@@ -48,3 +48,8 @@ jobs:
         with:
           name: dist
           path: WELA/*.csv
+
+      - name: Run configure bat(YamatoSecurity)
+        if: ${{ matrix.os == 'windows-2019' }}
+        run: |
+          ./bat/YamatoSecurity.bat
