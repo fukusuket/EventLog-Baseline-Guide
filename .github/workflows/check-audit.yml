@@ -9,19 +9,23 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-2019]
+        os: [windows-2019, windows-2022, windows-2025, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout bat repository
-        uses: actions/checkout@v4
-        with:
-          repository: Yamato-Security/EnableWindowsLogSettings
-          path: EnableWindowsLogSettings
+      - name: Run configure bat(ASD)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          ./ASD.bat
 
-#      - name: Run EnableWindowsLogSettings
-#        run: |
-#          cd EnableWindowsLogSettings
-#          ./YamatoSecurityConfigureWinEventLogs.bat
+      - name: Run configure bat(MS Client)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          ./Microsoft_Client.bat
+
+      - name: Run configure bat(MS Server)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          ./Microsoft_Server.bat
 
       - name: Checkout WELA repository
         uses: actions/checkout@v4
