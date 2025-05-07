@@ -103,7 +103,6 @@ jobs:
 
       - name: Delete WELA repo
         run: |
-          cd ..
           Remove-Item -Recurse -Force WELA
 
       - name: Pull Git repo
