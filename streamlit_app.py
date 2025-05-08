@@ -46,9 +46,9 @@ with m1:
         r"""
         function(cellClassParams) {
              if (cellClassParams.data.DefaultSetting == "No Auditing") {
-                if (cellClassParams.data.RecommendedSetting === null || cellClassParams.data.RecommendedSetting == "No Auditing") {
+                if (cellClassParams.data.RecommendedSetting === null || cellClassParams.data.Recommended == "No Auditing") {
                     return {'background-color': 'lightgray'}
-                } else if (cellClassParams.data.RecommendedSetting) {
+                } else if (cellClassParams.data.Recommended) {
                     return {'background-color': 'yellow'}
                 }
              } else {
