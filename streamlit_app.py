@@ -48,7 +48,7 @@ with m1:
              if (cellClassParams.data.DefaultSetting == "No Auditing") {
                 if (cellClassParams.data.RecommendedSettings === null || cellClassParams.data.RecommendedSettings == "No Auditing") {
                     return {'background-color': 'lightgray'}
-                } else if (cellClassParams.data.Recommended) {
+                } else if (cellClassParams.data.RecommendedSettings) {
                     return {'background-color': 'yellow'}
                 }
              } else {
