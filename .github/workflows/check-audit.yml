@@ -70,7 +70,7 @@ jobs:
           $fileSizeCsvPath = "./WELA/WELA-FileSize-Result.csv"
           $fileSizeData = Import-Csv $fileSizeCsvPath
           $fileSizeData | ForEach-Object { $_.Recommended = "" }
-          $fileSizeData | Export-Csv $fileSizeCsvPath -NoTypeInformation -Encoding UTF8
+          $fileSizeData | Select-Object @{Name="Recommended";Expression={$_.RecommendedSetting}}, @{Name="Default";Expression={$_.DefaultSetting}} | Export-Csv $fileSizeCsvPath -NoTypeInformation -Encoding UTF8
 
       - name: Move WELA result files (Default)
         if: ${{ matrix.os == 'windows-2019' }}
@@ -132,6 +132,10 @@ jobs:
         run: |
           cd WELA
           ./WELA.ps1 audit-filesize
+          $fileSizeCsvPath = "./WELA/WELA-FileSize-Result.csv"
+          $fileSizeData = Import-Csv $fileSizeCsvPath
+          $fileSizeData | ForEach-Object { $_.Recommended = "" }
+          $fileSizeData | Select-Object @{Name="Recommended";Expression={$_.RecommendedSetting}}, @{Name="Default";Expression={$_.DefaultSetting}} | Export-Csv $fileSizeCsvPath -NoTypeInformation -Encoding UTF8
 
       - name: Move WELA result files (YamatoSecurity)
         if: ${{ matrix.os == 'windows-2019' }}
