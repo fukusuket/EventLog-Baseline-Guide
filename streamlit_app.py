@@ -40,7 +40,7 @@ with m1:
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
     csv_file = data_path.joinpath("WELA-Audit-Result.csv")
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 1, 6, 5, 7, 2]
+    columns_to_display = [0, 1, 6, 5, 7, 2, 8]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
