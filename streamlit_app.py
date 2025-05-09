@@ -45,15 +45,18 @@ with m1:
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
-             if (cellClassParams.data.DefaultSetting == "No Auditing") {
-                if (cellClassParams.data.RecommendedSettings === null || cellClassParams.data.RecommendedSettings === "No Auditing") {
-                    return {'background-color': 'lightgray'}
-                } else if (cellClassParams.data.RecommendedSettings) {
-                    return {'background-color': 'yellow'}
+            const defaultSetting = cellClassParams.data.DefaultSetting;
+            const recommended = cellClassParams.data.RecommendedSettings;
+        
+            if (defaultSetting === "No Auditing") {
+                if (recommended === null || recommended === "No Auditing") {
+                    return { 'background-color': 'lightgray' };
+                } else {
+                    return { 'background-color': 'yellow' };
                 }
-             } else {
-                return {'background-color': 'palegreen'}
-             }
+            }
+        
+            return { 'background-color': 'palegreen' };
         }
        """)
 
