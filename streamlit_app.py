@@ -46,7 +46,7 @@ with m1:
         r"""
         function(cellClassParams) {
             const defaultSetting = cellClassParams.data.DefaultSetting;
-            const recommended = cellClassParams.data.RecommendedSettings;
+            const recommended = cellClassParams.data.RecommendedSetting;
         
             if (defaultSetting === "No Auditing") {
                 if (
