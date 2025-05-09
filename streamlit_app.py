@@ -49,13 +49,12 @@ with m1:
             const recommended = cellClassParams.data.RecommendedSettings;
         
             if (defaultSetting === "No Auditing") {
-                if (recommended === null || recommended === "No Auditing") {
+                if (recommended === null || recommended === "" || recommended === "No Auditing") {
                     return { 'background-color': 'lightgray' };
                 } else {
                     return { 'background-color': 'yellow' };
                 }
             }
-        
             return { 'background-color': 'palegreen' };
         }
        """)
