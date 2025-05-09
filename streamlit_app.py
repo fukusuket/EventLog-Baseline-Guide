@@ -46,16 +46,18 @@ with m1:
         r"""
         function(cellClassParams) {
             const defaultSetting = cellClassParams.data.DefaultSetting;
-            const recommended = cellClassParams.data.RecommendedSettings;
+            const recommendedRaw = cellClassParams.data.RecommendedSettings;
+            const recommended = typeof recommendedRaw === 'string' ? recommendedRaw.trim() : recommendedRaw;
         
             if (defaultSetting === "No Auditing") {
-                if (recommended === null || recommended === "" || recommended === "No Auditing") {
+                if (recommended === null || recommended === "No Auditing" || recommended === "") {
                     return { 'background-color': 'lightgray' };
                 } else {
                     return { 'background-color': 'yellow' };
                 }
+            } else {
+                return { 'background-color': 'palegreen' };
             }
-            return { 'background-color': 'palegreen' };
         }
        """)
 
