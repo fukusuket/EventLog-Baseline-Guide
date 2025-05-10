@@ -35,13 +35,12 @@ guide_link  = {
 
 ### Audit settings
 m1, m2, = st.columns((3, 2))
+df_audit = pd.read_csv(data_path.joinpath("WELA-Audit-Result.csv"))
 with m1:
     st.markdown(f"<h3 style='text-align: center;'>{selected_guide} Audit Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
-    csv_file = data_path.joinpath("WELA-Audit-Result.csv")
-    df = pd.read_csv(csv_file)
-    columns_to_display = [0, 1, 6, 5, 7, 8]
-    df = df.iloc[:, columns_to_display]
+    columns_to_display = [0, 1, 2, 6, 5, 7, 8]
+    df = df_audit.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
         function(cellClassParams) {
@@ -74,7 +73,7 @@ with m1:
 
 with m2:
     st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h3>", unsafe_allow_html=True)
-    msg = "TBD"
+    msg = ""
     if selected_guide == "YamatoSecurity" or selected_guide == "Australian Signals Directorate":
         msg = f"The following table shows the recommended log size based on {selected_guide}."
     else:
@@ -104,12 +103,12 @@ with m2:
 ### Sigma Rule Statistics
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Statistics on Usable and Unusable Sigma Rule(hayabusa rule)</h2>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>The following graph shows the detectability of Sigma rules based on the selected Audit Guide.</p>", unsafe_allow_html=True)
 
-level_order = ["critical", "high", "medium", "low", "informational"]
 df_usable = pd.read_csv(data_path.joinpath("UsableRules.csv"))
 df_unusable = pd.read_csv(data_path.joinpath("UnusableRules.csv"))
+
 m1, m2, = st.columns(2)
+level_order = ["critical", "high", "medium", "low", "informational"]
 with m1:
     df_usable["level"] = pd.Categorical(df_usable["level"], categories=level_order, ordered=True)
     df_usable.sort_values("level", inplace=True)
@@ -118,11 +117,11 @@ with m1:
     total = data["Value"].sum()
 
     ## Bar chart
-    st.markdown(f"<h3 style='text-align: center;'>Usable Rules (Total: {total})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Usable Rules Group by Level (Total: {total})</h4>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
 
     ## List
-    st.markdown(f"<h3 style='text-align: center;'>Usable Rules List (Total: {total})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Usable Rules List (Total: {total})</h4>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
@@ -145,11 +144,11 @@ with m2:
     total = data["Value"].sum()
 
     ## Bar chart
-    st.markdown(f"<h3 style='text-align: center;'>Unusable Rules (Total: {total})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Unusable Rules Group by Level (Total: {total})</h4>", unsafe_allow_html=True)
     st.altair_chart(create_bar_chart(data, ""), use_container_width=True)
 
     ## List
-    st.markdown(f"<h3 style='text-align: center;'>Unusable Rules List (Total: {total})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Unusable Rules List (Total: {total})</h4>", unsafe_allow_html=True)
     cellStyle_unusable = JsCode(
         r"""
         function(cellClassParams) {
@@ -163,31 +162,51 @@ with m2:
     go['defaultColDef']['cellStyle'] = cellStyle_unusable
     AgGrid(df_unusable, gridOptions=go, allow_unsafe_jscode=True, key='un_usable_rules', editable=True)
 
+
+m1, m2, = st.columns((1, 1))
+with m1:
+    columns_to_display = [0, 1, 2]
+    df_enabled = df_audit[df_audit["Enabled"] == True]
+    df_enabled = df_enabled.iloc[:, columns_to_display]
+    df_enabled = df_enabled.sort_values(by="RuleCount", ascending=False)
+    df_top10 = df_enabled.head(10)
+    data = df_top10
+    fig = px.pie(data, names="Category", values="RuleCount", title="", color_discrete_sequence=px.colors.qualitative.D3)
+    st.markdown(f"<h4 style='text-align: center;'>Usable Rules Group by Audit Category Top 10</h4>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="usable_category_top10")
+
+with m2:
+    columns_to_display = [0, 1, 2]
+    df_disabled = df_audit[df_audit["Enabled"] == False]
+    df_disabled = df_disabled.iloc[:, columns_to_display]
+    df_disabled = df_disabled.sort_values(by="RuleCount", ascending=False)
+    df_top10 = df_disabled.head(10)
+    data = df_top10
+    fig = px.pie(data, names="Category", values="RuleCount", title="", color_discrete_sequence=px.colors.qualitative.D3)
+    st.markdown(f"<h4 style='text-align: center;'>Unusable Rules Group by Audit Category Top 10</h4>", unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True, key="unusable_category_top10")
+
 m1, m2, m3, m4 = st.columns(4)
 with m1:
     data = df_usable["service"].dropna()
-    count = data.shape[0]
     fig = px.pie(data, names="service", title="", color_discrete_sequence=px.colors.qualitative.D3)
-    st.markdown(f"<h4 style='text-align: center;'>Usable Service (Total:{count})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Usable Sigma Service</h4>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="usable_service")
 
 with m2:
     data = df_usable["category"].dropna()
-    count = data.shape[0]
     fig = px.pie(data, names="category", title="", color_discrete_sequence=px.colors.qualitative.D3)
-    st.markdown(f"<h4 style='text-align: center;'>Usable Category (Total:{count})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Usable Sigma Category</h4>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="usable_category")
 
 with m3:
     data = df_unusable["service"].dropna()
-    count = data.shape[0]
     fig = px.pie(data, names="service", title="", color_discrete_sequence=px.colors.sequential.Sunset)
-    st.markdown(f"<h4 style='text-align: center;'>Unusable Service (Total:{count})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Unusable Sigma Service</h4>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="unusable_service")
 
 with m4:
     data = df_unusable["category"].dropna()
-    count = data.shape[0]
     fig = px.pie(data, names="category", title="", color_discrete_sequence=px.colors.sequential.Sunset)
-    st.markdown(f"<h4 style='text-align: center;'>Unusable Category (Total:{count})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='text-align: center;'>Unusable Sigma Category</h4>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="unusable_cateogry")
