@@ -182,7 +182,7 @@ with m2:
     df_disabled = df_disabled.sort_values(by="RuleCount", ascending=False)
     df_top10 = df_disabled.head(10)
     data = df_top10
-    fig = px.pie(data, names="Category", values="RuleCount", title="", color_discrete_sequence=px.colors.qualitative.D3)
+    fig = px.pie(data, names="Category", values="RuleCount", title="", color_discrete_sequence=px.colors.sequential.Sunset)
     st.markdown(f"<h4 style='text-align: center;'>Unusable Rules Group by Audit Category Top 10</h4>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, key="unusable_category_top10")
 
