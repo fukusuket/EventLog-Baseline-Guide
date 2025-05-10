@@ -45,6 +45,12 @@ jobs:
           cd bat
           ./Microsoft_Server.bat
 
+      - name: Run WELA.ps1 audit-settings(Default)
+        if: ${{ matrix.os == 'windows-2019' }}
+        run: |
+          cd WELA
+          ./WELA.ps1 audit-settings
+
       - name: Run WELA.ps1 audit-settings(ASD)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
