@@ -45,10 +45,23 @@ jobs:
           cd bat
           ./Microsoft_Server.bat
 
-      - name: Run WELA.ps1 audit-settings
+      - name: Run WELA.ps1 audit-settings(ASD)
+        if: ${{ matrix.os == 'windows-2022' }}
         run: |
           cd WELA
-          ./WELA.ps1 audit-settings
+          ./WELA.ps1 audit-settings -Baseline ASD
+
+      - name: Run WELA.ps1 audit-settings(MS Client)
+        if: ${{ matrix.os == 'windows-2025' }}
+        run: |
+          cd WELA
+          ./WELA.ps1 audit-settings -Baseline Microsoft_Client
+
+      - name: Run WELA.ps1 audit-settings(MS Server)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          cd WELA
+          ./WELA.ps1 audit-settings -Baseline Microsoft_Server
 
       - name: Run WELA.ps1 audit-filesize
         run: |
