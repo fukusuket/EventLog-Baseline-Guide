@@ -1972,6 +1972,8 @@ This detection assumes that PowerShell commands are passed via the CommandLine.
 "MSExchange Transport Agent Installation","medium","","process_creation","Detects the Installation of a Exchange Transport Agent","5bc86f64-e263-f14b-6525-bacad0b088ad"
 "Visual Studio Code Tunnel Service Installation","medium","","process_creation","Detects the installation of VsCode tunnel (code-tunnel) as a service.","b9112bca-62a9-013b-2fba-56019745171c"
 "Potential Memory Dumping Activity Via LiveKD","medium","","process_creation","Detects execution of LiveKD based on PE metadata or image name","4015c0bf-a80a-7b4f-cff2-cb50ea14b40f"
+"Suspicious Autorun Registry Modified via WMI","high","","process_creation","Detects suspicious activity where the WMIC process is used to create an autorun registry entry via reg.exe, which is often indicative of persistence mechanisms employed by malware.
+","dd16066a-afda-2bf2-7735-9dbc86c6cd0a"
 "HackTool - LocalPotato Execution","high","","process_creation","Detects the execution of the LocalPotato POC based on basic PE metadata information and default CLI examples","be028779-def3-3fc8-e466-1ed868806e63"
 "Deletion of Volume Shadow Copies via WMI with PowerShell","high","","process_creation","Detects deletion of Windows Volume Shadow Copies with PowerShell code and Get-WMIObject. This technique is used by numerous ransomware families such as Sodinokibi/REvil","962de487-869e-eec3-a641-839d9af9c49d"
 "Suspicious Driver Install by pnputil.exe","medium","","process_creation","Detects when a possible suspicious driver is being installed via pnputil.exe lolbin","a4547750-0b4d-019c-4808-0da01680cddb"
