@@ -191,7 +191,7 @@ with m1:
 with m2:
     st.markdown("<hr>", unsafe_allow_html=True)
     columns_to_display = [0, 1, 2]
-    df_disabled = df_audit[df_audit["Enabled"] == False]
+    df_disabled = df_audit[df_audit["CurrentSetting"] == "No Auditing"]
     df_disabled = df_disabled.iloc[:, columns_to_display]
     df_disabled = df_disabled.sort_values(by="RuleCount", ascending=False)
     df_top10 = df_disabled.head(10)
