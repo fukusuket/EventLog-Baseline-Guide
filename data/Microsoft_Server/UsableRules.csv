@@ -323,6 +323,8 @@ Adversaries may establish persistence and/or elevate privileges by executing mal
 Attackers might abuse this in order to bypass application whitelisting.
 ","e56b0b7d-eb03-5756-d3c4-1b29390fa86e"
 "Suspicious Double Extension File Execution","critical","","process_creation","Detects suspicious use of an .exe extension after a non-executable file extension like .pdf.exe, a set of spaces or underlines to cloak the executable file in spear phishing campaigns","452b2159-5e6e-c494-63b9-b385d6195f58"
+"Suspicious Autorun Registry Modified via WMI","high","","process_creation","Detects suspicious activity where the WMIC process is used to create an autorun registry entry via reg.exe, which is often indicative of persistence mechanisms employed by malware.
+","dd16066a-afda-2bf2-7735-9dbc86c6cd0a"
 "New Root Certificate Installed Via CertMgr.EXE","medium","","process_creation","Detects execution of ""certmgr"" with the ""add"" flag in order to install a new certificate on the system.
 Adversaries may install a root certificate on a compromised system to avoid warnings when connecting to adversary controlled web servers.
 ","0ea4a0ee-5c69-9f71-3691-d203eb76c9fc"
