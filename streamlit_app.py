@@ -170,7 +170,7 @@ m1, m2, = st.columns((1, 1))
 with m1:
     st.markdown("<hr>", unsafe_allow_html=True)
     columns_to_display = [0, 1, 2]
-    df_enabled = df_audit[df_audit["CurrentSetting"] != "No Auditing"]
+    df_enabled = df_audit[df_audit["CurrentSetting"] == "Enabled" or df_audit["CurrentSetting"] == "Success and Failure" or df_audit["CurrentSetting"] == "Success"]
     df_enabled = df_enabled.iloc[:, columns_to_display]
     df_enabled = df_enabled.sort_values(by="RuleCount", ascending=False)
     df_top10 = df_enabled.head(10)
