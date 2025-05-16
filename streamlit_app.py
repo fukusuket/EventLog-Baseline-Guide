@@ -86,7 +86,7 @@ with m2:
     st.markdown(f"<p style='text-align: center;'>{msg}</p>", unsafe_allow_html=True)
     csv_file = data_path.joinpath("WELA-FileSize-Result.csv")
     df = pd.read_csv(csv_file)
-    columns_to_display = [0, 4, 3]
+    columns_to_display = [0, 3, 4]
     df = df.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
