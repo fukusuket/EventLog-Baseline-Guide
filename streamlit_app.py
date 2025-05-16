@@ -43,7 +43,7 @@ df_audit = pd.read_csv(data_path.joinpath("WELA-Audit-Result.csv"))
 with m1:
     st.markdown(f"<h3 style='text-align: center;'>{selected_guide} Audit Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
-    columns_to_display = [0, 1, 2, 6, 5, 7, 8]
+    columns_to_display = [0, 1, 2, 5, 6, 7, 8]
     df = df_audit.iloc[:, columns_to_display]
     cellStyle = JsCode(
         r"""
