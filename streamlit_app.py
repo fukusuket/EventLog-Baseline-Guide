@@ -40,11 +40,14 @@ guide_link  = {
 ### Audit settings
 m1, m2, = st.columns((3, 2))
 df_audit = pd.read_csv(data_path.joinpath("WELA-Audit-Result.csv"))
+default_audit = Path("./data/Windows_Default")
+df_audit_default = pd.read_csv(default_audit.joinpath("WELA-Audit-Result.csv"))
 with m1:
     st.markdown(f"<h3 style='text-align: center;'>{selected_guide} Audit Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
-    columns_to_display = [0, 1, 2, 5, 6, 7, 8]
-    df = df_audit.rename(columns={"CurrentSetting": "DefaultSetting"}).iloc[:, columns_to_display]
+    df_combined = pd.concat([df_audit, df_audit_default], axis=1)
+    columns_to_display = [0, 1, 2, 14, 6, 7, 8]
+    df = df_combined.rename(columns={"CurrentSetting": "DefaultSetting"}).iloc[:, columns_to_display]
 
     cellStyle = JsCode(
         r"""
