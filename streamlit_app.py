@@ -24,7 +24,7 @@ def create_bar_chart(data, title):
 st.set_page_config(page_title='Comparison of Baseline Guides for Event Log Audit Settings',  layout='wide')
 st.markdown("<h1 style='text-align: center;'>Comparison of Baseline Guides for Event Log Audit Settings</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>A security-driven approach to configuring Windows event logs</h3>", unsafe_allow_html=True)
-_,m,_ = st.columns((2,5,2))
+_,m,_ = st.columns((1,10,1))
 with m:
     selected_guide = st.selectbox('', ["Windows Default", "YamatoSecurity", "Australian Signals Directorate", "Microsoft(Server)", "Microsoft(Client)"], index=0, label_visibility="collapsed")
 st.markdown("<hr>", unsafe_allow_html=True)
@@ -38,11 +38,11 @@ guide_link  = {
 }
 
 ### Audit settings
-m1, m2, = st.columns((3, 2))
+_,m,_ = st.columns((2,10,2))
 df_audit = pd.read_csv(data_path.joinpath("WELA-Audit-Result.csv"))
 default_audit = Path("./data/Windows_Default")
 df_audit_default = pd.read_csv(default_audit.joinpath("WELA-Audit-Result.csv"))
-with m1:
+with m:
     st.markdown(f"<h3 style='text-align: center;'>{selected_guide} Audit Settings</h3>", unsafe_allow_html=True)
     st.markdown(f"<p style='text-align: center;'><a href='{guide_link[selected_guide]}' target='_blank'>{guide_link[selected_guide]}</a></p>", unsafe_allow_html=True)
     df_combined = pd.concat([df_audit, df_audit_default], axis=1)
@@ -79,7 +79,8 @@ with m1:
     go['defaultColDef']['cellStyle'] = cellStyle
     AgGrid(data=df, gridOptions=go, allow_unsafe_jscode=True, key='grid1', editable=True)
 
-with m2:
+_,m,_ = st.columns((2,3,2))
+with m:
     st.markdown(f"<h3 style='text-align: center;'>Log File Size Settings</h3>", unsafe_allow_html=True)
     msg = ""
     if selected_guide == "YamatoSecurity" or selected_guide == "Australian Signals Directorate":
