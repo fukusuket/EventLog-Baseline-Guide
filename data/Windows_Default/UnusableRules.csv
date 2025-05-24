@@ -284,6 +284,7 @@ Attacker might abuse this in order to compile JScript files on the fly and bypas
 ","4acb4c4c-6e64-9353-58fa-113832d88626"
 "File Download From IP Based URL Via CertOC.EXE","high","","process_creation","Detects when a user downloads a file from an IP based URL using CertOC.exe","67db6bcf-cb5b-3e0b-2ba8-4afd9e5ca3a8"
 "Uncommon Child Process Of BgInfo.EXE","medium","","process_creation","Detects uncommon child processes of ""BgInfo.exe"" which could be a sign of potential abuse of the binary to proxy execution via external VBScript","7a110d73-1faa-19d5-10aa-bd44ad1e783f"
+"PUA - AdFind.EXE Execution","medium","","process_creation","Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment","5cba86ae-86b3-1aba-fe62-8b82c1fb1f92"
 "Always Install Elevated MSI Spawned Cmd And Powershell","medium","","process_creation","Detects Windows Installer service (msiexec.exe) spawning ""cmd"" or ""powershell""","3679f255-d90a-49da-389c-bb16db65853c"
 "Potentially Suspicious Command Targeting Teams Sensitive Files","medium","","process_creation","Detects a commandline containing references to the Microsoft Teams database or cookies files from a process other than Teams.
 The database might contain authentication tokens and other sensitive information about the logged in accounts.
