@@ -204,6 +204,7 @@ Web browsers typically store the credentials in an encrypted format within a cre
 "Dnscat Execution","critical","","ps_script","Dnscat exfiltration tool execution","47d13687-edae-dafa-bdab-416474c95f53"
 "Suspicious PowerShell Invocations - Generic","high","powershell","","Detects suspicious PowerShell invocation command parameters","391b98f2-3f42-0d06-a295-18a2aa29d39a"
 "Execution via CL_Mutexverifiers.ps1","high","","ps_script","Detects Execution via runAfterCancelProcess in CL_Mutexverifiers.ps1 module","f427b1c7-bbad-7bd6-bb0f-65b6170a3cb5"
+"Delete Volume Shadow Copies via WMI with PowerShell - PS Script","high","","ps_script","Deletes Windows Volume Shadow Copies with PowerShell code and Get-WMIObject. This technique is used by numerous ransomware families such as Sodinokibi/REvil","baee41a3-2063-6125-778e-0d9710474c06"
 "Execution via CL_Mutexverifiers.ps1 (2 Lines)","high","","ps_script","Detects Execution via runAfterCancelProcess in CL_Mutexverifiers.ps1 module","97408cc2-d2e8-83dd-1f84-93da08e9f191"
 "Execution via CL_Invocation.ps1 (2 Lines)","high","","ps_script","Detects Execution via SyncInvoke in CL_Invocation.ps1 module","13cf4134-564b-abdb-c83e-dac3ba9bac3c"
 "Invoke-Obfuscation CLIP+ Launcher - PowerShell","high","","ps_script","Detects Obfuscated use of Clip.exe to execute PowerShell","fd4e11cc-a1e1-264d-4545-f06b97371ed2"
@@ -311,7 +312,6 @@ Common uses of batch files include long or repetitive tasks, or the need to run 
 ","57b18282-5df7-0636-ee86-75ccdbe55519"
 "Potential Suspicious PowerShell Keywords","medium","","ps_script","Detects potentially suspicious keywords that could indicate the use of a PowerShell exploitation framework","12b5b805-7b4b-d153-35e2-2230d216346c"
 "WMImplant Hack Tool","high","","ps_script","Detects parameters used by WMImplant","a91bd8f4-12c9-8c19-370c-2ddece54fd99"
-"Delete Volume Shadow Copies via WMI with PowerShell - PS Script","high","","ps_script","Deletes Windows Volume Shadow Copies with PowerShell code and Get-WMIObject. This technique is used by numerous ransomware families such as Sodinokibi/REvil","baee41a3-2063-6125-778e-0d9710474c06"
 "AADInternals PowerShell Cmdlets Execution - PsScript","high","","ps_script","Detects ADDInternals Cmdlet execution. A tool for administering Azure AD and Office 365. Which can be abused by threat actors to attack Azure AD or Office 365.","61d6fe12-d403-c9b3-bc3f-fb10de58a4c3"
 "Remove Account From Domain Admin Group","medium","","ps_script","Adversaries may interrupt availability of system and network resources by inhibiting access to accounts utilized by legitimate users.
 Accounts may be deleted, locked, or manipulated (ex: changed credentials) to remove access to accounts.
@@ -829,6 +829,7 @@ Attacker might abuse this in order to compile JScript files on the fly and bypas
 ","4acb4c4c-6e64-9353-58fa-113832d88626"
 "File Download From IP Based URL Via CertOC.EXE","high","","process_creation","Detects when a user downloads a file from an IP based URL using CertOC.exe","67db6bcf-cb5b-3e0b-2ba8-4afd9e5ca3a8"
 "Uncommon Child Process Of BgInfo.EXE","medium","","process_creation","Detects uncommon child processes of ""BgInfo.exe"" which could be a sign of potential abuse of the binary to proxy execution via external VBScript","7a110d73-1faa-19d5-10aa-bd44ad1e783f"
+"PUA - AdFind.EXE Execution","medium","","process_creation","Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment","5cba86ae-86b3-1aba-fe62-8b82c1fb1f92"
 "Always Install Elevated MSI Spawned Cmd And Powershell","medium","","process_creation","Detects Windows Installer service (msiexec.exe) spawning ""cmd"" or ""powershell""","3679f255-d90a-49da-389c-bb16db65853c"
 "Potentially Suspicious Command Targeting Teams Sensitive Files","medium","","process_creation","Detects a commandline containing references to the Microsoft Teams database or cookies files from a process other than Teams.
 The database might contain authentication tokens and other sensitive information about the logged in accounts.
@@ -2883,6 +2884,7 @@ Example of these requests denial include issues with permissions on the certific
 "Vulnerable Netlogon Secure Channel Connection Allowed","high","system","","Detects that a vulnerable Netlogon secure channel connection was allowed, which could be an indicator of CVE-2020-1472.","a82f6b3b-324f-7234-9092-289117234d31"
 "Zerologon Exploitation Using Well-known Tools","critical","system","","This rule is designed to detect attempts to exploit Zerologon (CVE-2020-1472) vulnerability using mimikatz zerologon module or other exploits from machine with ""kali"" hostname.","4d943318-24e9-7318-6951-fdf8cb235652"
 "NTLMv1 Logon Between Client and Server","medium","system","","Detects the reporting of NTLMv1 being used between a client and server. NTLMv1 is insecure as the underlying encryption algorithms can be brute-forced by modern hardware.","cb063566-b04b-c7e4-316b-c69075ed08f5"
+"Crash Dump Created By Operating System","medium","system","","Detects ""BugCheck"" errors indicating the system rebooted due to a crash, capturing the bugcheck code, dump file path, and report ID.","d4ccca35-9fd6-1ed8-f5d5-84f755404fdd"
 "Malicious Service Installations","critical","system","","Detects known malicious service installs that only appear in cases of lateral movement, credential dumping, and other suspicious activities.","a5f841a8-5dcb-5ee4-73ea-5331859bf763"
 "Metasploit Or Impacket Service Installation Via SMB PsExec","high","system","","Detects usage of Metasploit SMB PsExec (exploit/windows/smb/psexec) and Impacket psexec.py by triggering on specific service installation","c953a767-8b94-df03-dd53-611baad380fd"
 "Rare Service Installations","low","system","","Detects rare service installs that only appear a few times per time frame and could reveal password dumpers, backdoor installs or other types of malicious services","e9acc9e9-8b91-7859-2d0c-446a2c40b937"
