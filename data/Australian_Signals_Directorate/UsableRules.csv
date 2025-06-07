@@ -31,8 +31,8 @@ Unfortunately, that is about the only instance of CVEs being written to this log
 "CVE-2024-49113 Exploitation Attempt - LDAP Nightmare","high","application","","Detects exploitation attempt of CVE-2024-49113 known as LDAP Nightmare, based on ""Application Error"" log where the faulting application is ""lsass.exe"" and the faulting module is ""WLDAP32.dll"".
 ","1117f6c7-1c68-9c6e-c3e8-191e9d687387"
 "LPE InstallerFileTakeOver PoC CVE-2021-41379","high","application","","Detects PoC tool used to exploit LPE vulnerability CVE-2021-41379","8e38887f-8e20-477d-26c1-0862951ae91b"
-"MSMQ Corrupted Packet Encountered","high","application","","Detects corrupted packets sent to the MSMQ service. Could potentially be a sign of CVE-2023-21554 exploitation","0bcc2c11-231f-f491-7985-3571fee7f2c5"
 "CVE-2023-40477 Potential Exploitation - WinRAR Application Crash","medium","application","","Detects a crash of ""WinRAR.exe"" where the version is lower than 6.23. This could indicate potential exploitation of CVE-2023-40477","f33feae7-db95-01a2-c35f-a6361e690ebb"
+"MSMQ Corrupted Packet Encountered","high","application","","Detects corrupted packets sent to the MSMQ service. Could potentially be a sign of CVE-2023-21554 exploitation","0bcc2c11-231f-f491-7985-3571fee7f2c5"
 "MSSQL Extended Stored Procedure Backdoor Maggie","high","application","","This rule detects the execution of the extended storage procedure backdoor named Maggie in the context of Microsoft SQL server","e177969a-73cc-a32c-b948-cb580287057a"
 "MSI Install","informational","application","","Windows Installer installed software via an MSI file.
 %Data[1]%: Product Name
@@ -718,6 +718,12 @@ One trivial example of this is using rundll32.exe without arguments as a sacrifi
 "Potential Suspicious Registry File Imported Via Reg.EXE","medium","","process_creation","Detects the import of '.reg' files from suspicious paths using the 'reg.exe' utility","7ebc545f-8b8d-1d34-7a2e-99467ab1008d"
 "Suspicious Execution of Hostname","low","","process_creation","Use of hostname to get information","70d8280e-179e-392c-fb0d-96528c5d36cc"
 "Sysinternals PsSuspend Execution","medium","","process_creation","Detects usage of Sysinternals PsSuspend which can be abused to suspend critical processes","c4cc0668-2b35-4884-9119-8a558a544a6d"
+"Obfuscated PowerShell MSI Install via WindowsInstaller COM","high","","process_creation","Detects the execution of obfuscated PowerShell commands that attempt to install MSI packages via the Windows Installer COM object (`WindowsInstaller.Installer`).
+The technique involves manipulating strings to hide functionality, such as constructing class names using string insertion (e.g., 'indowsInstaller.Installer'.Insert(0,'W')) and correcting
+malformed URLs (e.g., converting 'htps://' to 'https://') at runtime. This behavior is commonly associated with malware loaders or droppers that aim to bypass static detection
+by hiding intent in runtime-generated strings and using legitimate tools for code execution. The use of `InstallProduct` and COM object creation, particularly combined with
+hidden window execution and suppressed UI, indicates an attempt to install software (likely malicious) without user interaction.
+","74a80804-adfc-f831-6290-6ae386436db4"
 "Suspicious Invoke-WebRequest Execution With DirectIP","medium","","process_creation","Detects calls to PowerShell with Invoke-WebRequest cmdlet using direct IP access","b3de6fc6-2aa5-32aa-2172-7e989f524bb1"
 "LSASS Process Reconnaissance Via Findstr.EXE","high","","process_creation","Detects findstring commands that include the keyword lsass, which indicates recon actviity for the LSASS process PID","5705250b-888d-01e5-36cf-4302564a99bf"
 "Suspicious RASdial Activity","medium","","process_creation","Detects suspicious process related to rasdial.exe","60b34e33-95fe-6beb-2917-eb4309e6dcd8"
@@ -1114,7 +1120,7 @@ Attackers can leverage AutoIt to create and distribute malware, including keylog
 ","6c6e8f1c-70aa-c21c-7860-3cd72022adb7"
 "Potential SysInternals ProcDump Evasion","high","","process_creation","Detects uses of the SysInternals ProcDump utility in which ProcDump or its output get renamed, or a dump file is moved or copied to a different name","61427f33-35de-ec51-6afd-e44b8ccf9023"
 "WMI Backdoor Exchange Transport Agent","critical","","process_creation","Detects a WMI backdoor in Exchange Transport Agents via WMI event filters","812c76e3-a745-515e-484b-d64d6f64c779"
-"Suspicious Double Extension File Execution","critical","","process_creation","Detects suspicious use of an .exe extension after a non-executable file extension like .pdf.exe, a set of spaces or underlines to cloak the executable file in spear phishing campaigns","452b2159-5e6e-c494-63b9-b385d6195f58"
+"Suspicious Double Extension File Execution","high","","process_creation","Detects suspicious use of an .exe extension after a non-executable file extension like .pdf.exe, a set of spaces or underlines to cloak the executable file in spear phishing campaigns","452b2159-5e6e-c494-63b9-b385d6195f58"
 "Invoke-Obfuscation VAR+ Launcher","high","","process_creation","Detects Obfuscated use of Environment Variables to execute PowerShell","612594ec-e080-cbd7-b223-76411581dea7"
 "Enumeration for 3rd Party Creds From CLI","medium","","process_creation","Detects processes that query known 3rd party registry keys that holds credentials via commandline","7cd5f138-8005-2cb8-cb41-d6b0365b8e5f"
 "Potential Credential Dumping Via WER","high","","process_creation","Detects potential credential dumping via Windows Error Reporting LSASS Shtinkering technique which uses the Windows Error Reporting to dump lsass","fd5780a1-437f-d735-9ec2-8ed852b7c70f"
@@ -1233,7 +1239,7 @@ are indistinguishable from ASCII characters and thus may make excellent candidat
 "NtdllPipe Like Activity Execution","high","","process_creation","Detects command that type the content of ntdll.dll to a different file or a pipe in order to evade AV / EDR detection. As seen being used in the POC NtdllPipe","ae7a6aa8-b9bd-4f34-f72a-5e9d33e9098c"
 "Potential Signing Bypass Via Windows Developer Features","high","","process_creation","Detects when a user enable developer features such as ""Developer Mode"" or ""Application Sideloading"". Which allows the user to install untrusted packages.","a56ae12f-67c8-f625-2279-f5290ba86fa9"
 "Potentially Suspicious Child Process of KeyScrambler.exe","medium","","process_creation","Detects potentially suspicious child processes of KeyScrambler.exe","b2e90afd-fc69-1c5c-0457-d908fe3c4335"
-"Potential PowerShell Obfuscation Via WCHAR","high","","process_creation","Detects suspicious encoded character syntax often used for defense evasion","e0e9ccfe-20b3-2dca-ffe5-0e6c86ad22bc"
+"Potential PowerShell Obfuscation Via WCHAR/CHAR","high","","process_creation","Detects suspicious encoded character syntax often used for defense evasion","e0e9ccfe-20b3-2dca-ffe5-0e6c86ad22bc"
 "Command Line Execution with Suspicious URL and AppData Strings","medium","","process_creation","Detects a suspicious command line execution that includes an URL and AppData string in the command line parameters as used by several droppers (js/vbs > powershell)","891ece81-d720-ce9c-fe02-6e491c7adb14"
 "Use of VSIISExeLauncher.exe","medium","","process_creation","The ""VSIISExeLauncher.exe"" binary part of the Visual Studio/VS Code can be used to execute arbitrary binaries","98e8d981-f4c4-0375-e252-80c62c6ff415"
 "Potential Defense Evasion Activity Via Emoji Usage In CommandLine - 4","high","","process_creation","Detects the usage of emojis in the command line, this could be a sign of potential defense evasion activity.","09815188-8262-0a9b-c00c-460108a51499"
@@ -1405,7 +1411,7 @@ The tool has been observed in use by threat groups including Akira ransomware.
 "Gpscript Execution","medium","","process_creation","Detects the execution of the LOLBIN gpscript, which executes logon or startup scripts configured in Group Policy","0a1228c0-6754-8156-d07f-6aa2daece740"
 "Potential Arbitrary Command Execution Via FTP.EXE","medium","","process_creation","Detects execution of ""ftp.exe"" script with the ""-s"" or ""/s"" flag and any child processes ran by ""ftp.exe"".","26132f4c-3dfc-593f-2d62-2e8ff59e0720"
 "Suspicious Child Process Of Wermgr.EXE","high","","process_creation","Detects suspicious Windows Error Reporting manager (wermgr.exe) child process","65769ded-2258-284c-b61d-e79567f5efc0"
-"File Decoded From Base64/Hex Via Certutil.EXE","medium","","process_creation","Detects the execution of certutil with either the ""decode"" or ""decodehex"" flags to decode base64 or hex encoded files. This can be abused by attackers to decode an encoded payload before execution","1d0387b6-6de7-eb5c-ffe9-ee892ff26f07"
+"File Decoded From Base64/Hex Via Certutil.EXE","high","","process_creation","Detects the execution of certutil with either the ""decode"" or ""decodehex"" flags to decode base64 or hex encoded files. This can be abused by attackers to decode an encoded payload before execution","1d0387b6-6de7-eb5c-ffe9-ee892ff26f07"
 "ShimCache Flush","high","","process_creation","Detects actions that clear the local ShimCache and remove forensic evidence","3681f000-5b6c-d6a6-3a0f-8240c1325dc3"
 "HackTool - EDRSilencer Execution","high","","process_creation","Detects the execution of EDRSilencer, a tool that leverages Windows Filtering Platform (WFP) to block Endpoint Detection and Response (EDR) agents from reporting security events to the server based on PE metadata information.
 ","b4e3c1f6-6ba1-48f2-3b3a-a5183ddadbb3"
