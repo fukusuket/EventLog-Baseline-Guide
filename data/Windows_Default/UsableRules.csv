@@ -31,8 +31,8 @@ Unfortunately, that is about the only instance of CVEs being written to this log
 "CVE-2024-49113 Exploitation Attempt - LDAP Nightmare","high","application","","Detects exploitation attempt of CVE-2024-49113 known as LDAP Nightmare, based on ""Application Error"" log where the faulting application is ""lsass.exe"" and the faulting module is ""WLDAP32.dll"".
 ","1117f6c7-1c68-9c6e-c3e8-191e9d687387"
 "LPE InstallerFileTakeOver PoC CVE-2021-41379","high","application","","Detects PoC tool used to exploit LPE vulnerability CVE-2021-41379","8e38887f-8e20-477d-26c1-0862951ae91b"
-"MSMQ Corrupted Packet Encountered","high","application","","Detects corrupted packets sent to the MSMQ service. Could potentially be a sign of CVE-2023-21554 exploitation","0bcc2c11-231f-f491-7985-3571fee7f2c5"
 "CVE-2023-40477 Potential Exploitation - WinRAR Application Crash","medium","application","","Detects a crash of ""WinRAR.exe"" where the version is lower than 6.23. This could indicate potential exploitation of CVE-2023-40477","f33feae7-db95-01a2-c35f-a6361e690ebb"
+"MSMQ Corrupted Packet Encountered","high","application","","Detects corrupted packets sent to the MSMQ service. Could potentially be a sign of CVE-2023-21554 exploitation","0bcc2c11-231f-f491-7985-3571fee7f2c5"
 "MSSQL Extended Stored Procedure Backdoor Maggie","high","application","","This rule detects the execution of the extended storage procedure backdoor named Maggie in the context of Microsoft SQL server","e177969a-73cc-a32c-b948-cb580287057a"
 "MSI Install","informational","application","","Windows Installer installed software via an MSI file.
 %Data[1]%: Product Name
