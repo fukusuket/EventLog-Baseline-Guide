@@ -21,6 +21,8 @@ Unfortunately, that is about the only instance of CVEs being written to this log
 ","11635209-eef1-b93a-98bf-33b80e5065a1"
 "MSSQL Disable Audit Settings","high","application","","Detects when an attacker calls the ""ALTER SERVER AUDIT"" or ""DROP SERVER AUDIT"" transaction in order to delete or disable audit logs on the server","e485c12e-8840-1b24-61f7-697e480d63b1"
 "MSSQL Add Account To Sysadmin Role","high","application","","Detects when an attacker tries to backdoor the MSSQL server by adding a backdoor account to the sysadmin fixed server role","d17d99ad-18e9-67e1-6163-054f210fee16"
+"MSSQL Destructive Query","medium","application","","Detects the invocation of MS SQL transactions that are destructive towards table or database data, such as ""DROP TABLE"" or ""DROP DATABASE"".
+","ca403782-4ab3-76a6-b804-069219ccbd7f"
 "MSSQL Server Failed Logon","low","application","","Detects failed logon attempts from clients to MSSQL server.","03e217c6-de25-3afa-3833-6c534a6576f0"
 "Ntdsutil Abuse","medium","application","","Detects potential abuse of ntdsutil to dump ntds.dit database","b8d0d560-906d-670f-cd10-32ed9179f21a"
 "Dump Ntds.dit To Suspicious Location","medium","application","","Detects potential abuse of ntdsutil to dump ntds.dit database to a suspicious location","a050e701-373d-fc52-c345-8fbf933e1b82"
@@ -577,6 +579,9 @@ in Tasks to load and execute a custom assembly into cscript, wscript, regsvr32, 
 Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by application shims
 ","7d9d897f-58c0-2dae-d6f2-410c0f0f5e07"
 "Suspicious Powercfg Execution To Change Lock Screen Timeout","medium","","process_creation","Detects suspicious execution of 'Powercfg.exe' to change lock screen timeout","deb3c0f1-0961-ecf5-5c89-8c7640d2b22f"
+"RegAsm.EXE Execution Without CommandLine Flags or Files","low","","process_creation","Detects the execution of ""RegAsm.exe"" without a commandline flag or file, which might indicate potential process injection activity.
+Usually ""RegAsm.exe"" should point to a dedicated DLL file or call the help with the ""/?"" flag.
+","4865bce7-425b-5efe-ad03-7dfe40725e2b"
 "Disabled IE Security Features","high","","process_creation","Detects command lines that indicate unwanted modifications to registry keys that disable important Internet Explorer security features","e57cc75a-d93a-26d1-615c-9a093649f70a"
 "Disable Windows IIS HTTP Logging","high","","process_creation","Disables HTTP logging on a Windows IIS web server as seen by Threat Group 3390 (Bronze Union)","3682c181-3b54-0cf3-cfdb-1d800bb7b125"
 "Operator Bloopers Cobalt Strike Modules","high","","process_creation","Detects Cobalt Strike module/commands accidentally entered in CMD shell","c7a2ef80-f915-79f0-1ce3-bf61d570a990"
@@ -1197,7 +1202,8 @@ Threat actors have leveraged this utility and this technique for achieving netwo
 "Suspicious CustomShellHost Execution","medium","","process_creation","Detects the execution of CustomShellHost binary where the child isn't located in 'C:\Windows\explorer.exe'","5f438a3c-3bd7-d256-61ad-9ae6334543ec"
 "HackTool - winPEAS Execution","high","","process_creation","WinPEAS is a script that search for possible paths to escalate privileges on Windows hosts. The checks are explained on book.hacktricks.xyz","02c0a52b-6536-ca47-ce99-cea982b9008a"
 "Abuse of Service Permissions to Hide Services Via Set-Service","high","","process_creation","Detects usage of the ""Set-Service"" powershell cmdlet to configure a new SecurityDescriptor that allows a service to be hidden from other utilities such as ""sc.exe"", ""Get-Service""...etc. (Works only in powershell 7)","f57937ba-e844-d5ff-1b06-4ca216d0b747"
-"Suspicious Windows Defender Registry Key Tampering Via Reg.EXE","high","","process_creation","Detects the usage of ""reg.exe"" to tamper with different Windows Defender registry keys in order to disable some important features related to protection and detection","0e292cea-6680-a95e-46e2-4b938a65597e"
+"Suspicious Windows Defender Registry Key Tampering Via Reg.EXE","high","","process_creation","Detects the usage of ""reg.exe"" to tamper with different Windows Defender registry keys in order to disable some important features related to protection and detection
+","0e292cea-6680-a95e-46e2-4b938a65597e"
 "LOLBIN Execution From Abnormal Drive","medium","","process_creation","Detects LOLBINs executing from an abnormal or uncommon drive such as a mounted ISO.","77495bbc-a90d-6112-a1bf-c357d3b901fd"
 "Nslookup PowerShell Download Cradle - ProcessCreation","medium","","process_creation","Detects suspicious powershell download cradle using nslookup. This cradle uses nslookup to extract payloads from DNS records","58180213-29ed-6aa8-7558-806ba2830b7f"
 "File Download Using Notepad++ GUP Utility","high","","process_creation","Detects execution of the Notepad++ updater (gup) from a process other than Notepad++ to download files.","f2a1b260-bd4a-52e8-6aea-b4ce040025e5"
@@ -1683,7 +1689,11 @@ internal network resources such as servers, tools/dashboards, or other related i
 "Process Access via TrolleyExpress Exclusion","high","","process_creation","Detects a possible process memory dump that uses the white-listed Citrix TrolleyExpress.exe filename as a way to dump the lsass process memory","06305885-4321-1104-1a1d-5f6dcddf76af"
 "Suspicious AddinUtil.EXE CommandLine Execution","high","","process_creation","Detects execution of the Add-In deployment cache updating utility (AddInutil.exe) with suspicious Addinroot or Pipelineroot paths. An adversary may execute AddinUtil.exe with uncommon Addinroot/Pipelineroot paths that point to the adversaries Addins.Store payload.
 ","9990ea1d-fc80-2490-3c4f-8237e8bfbc7f"
-"MSHTA Suspicious Execution 01","high","","process_creation","Detection for mshta.exe suspicious execution patterns sometimes involving file polyglotism","a641f121-9379-33a5-1c52-cda13641658a"
+"MSHTA Execution with Suspicious File Extensions","high","","process_creation","Detects execution of mshta.exe with file types that looks like they do not typically represent HTA (HTML Application) content,
+such as .png, .jpg, .zip, .pdf, and others, which are often polyglots. MSHTA is a legitimate Windows utility for executing HTML Applications
+containing VBScript or JScript. Threat actors often abuse this lolbin utility to download and
+execute malicious scripts disguised as benign files or hosted under misleading extensions to evade detection.
+","a641f121-9379-33a5-1c52-cda13641658a"
 "Potential Rundll32 Execution With DLL Stored In ADS","high","","process_creation","Detects execution of rundll32 where the DLL being called is stored in an Alternate Data Stream (ADS).","86b3dc5a-8aaa-c378-77ea-e9d3d850d487"
 "Exports Registry Key To a File","low","","process_creation","Detects the export of the target Registry key to a file.","033b2a23-2b9c-4ad7-db96-f2f2a509169c"
 "VolumeShadowCopy Symlink Creation Via Mklink","high","","process_creation","Shadow Copies storage symbolic link creation using operating systems utilities","52b94cb0-304c-59f3-ca56-497db104688c"
